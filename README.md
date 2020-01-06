@@ -30,4 +30,4 @@ the game you will discover more and more about Ben and his story.
   This app will consist of a single screen with main game screen, game controls and nav links to my Github and my LinkedIn.
   Game controls will include left, right, up, down character movement. Spacebar to interact with objects and I key to view inventory. 
  
-![Wireframe](gamescreen.png)
+![Wireframe](https://user-images.githubusercontent.com/19613624/71794272-bc986200-300e-11ea-87c5-cb1785420cb6.png)

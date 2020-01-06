@@ -1,16 +1,16 @@
-# One-Way-Out
+# Save The Princess
 
-Escape room game with an evolving storyline as you find your way out.
+Escape room type game with an evolving storyline as you find your way into the castle to save the princess.
 
 Background 
 
-One Way Out is an escape room inspired game with a unique storyline and will require creative thinking to come up with the solutions in order to solve the game and figure out the one way out.
-You control Ben who woke up in an unfamiliar place. There appears to be no one else around and it's up to him to figure out how he got there and more importantly how to get out. As you progress through 
-the game you will discover more and more about Ben and his story.
+Save The Princess is an escape room inspired game that has the main character finding his way into the room instead of out. It features a unique storyline and will require creative thinking to come up with the solutions in order to solve the game and figure out the way into the castle.
+
+You control Henry who is a coal miner for the kingdom of Tromide. He has always kept a low profile, determined to do his job and then enjoy the peace and quiet of his home. He never made an effort to be known or make friends. No one knew him personally and he liked it that way.  The princess has been kidnapped and all efforts to save her have failed. No one can figure out the way in and although Henry has heard of the situation, it wasn't something he was interested in getting involved in. As he was walking to work he saw a flier offering a major reward to anyone that can help save the princess. The one thing Henry does care for is money. He thought it over for a while and then after work went home and decided to come up with a plan. This is where his story begins. As you progress through the game you will discover more and more about Henry, the kingdom and the history.
 
 <h2>MVP's</h2>
 
-<h3>In One-Way-Out, users will be able to:</h3>
+<h3>In Save The Princess, users will be able to:</h3>
 
   1. Experience the story telling of the game.
   2. Move the main character around the scenes.

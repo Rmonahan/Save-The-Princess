@@ -1,23 +1,21 @@
-function GameView(level, ctx) {
-  this.ctx = ctx;
-  this.level = level;
-  this.mainCharacter = this.game.createMainCharacter();
-  this.bindKeyHandlers;
-}
-
-GameView.MOVES = {
-  w: [0, -1],
-  a: [-1, 0],
-  s: [0, 1],
-  d: [1, 0],
-};
-
-
-GameView.prototype.bindKeyHandlers = function bindKeyHandlers() {
-  const mainCharacter = this.mainCharacter;
-
+class GameView {
+  constructor(level, ctx) {
+    this.ctx = ctx;
+    this.level = level;
+    this.mainCharacter = this.createMainCharacter();
+    this.bindKeyHandlers();
+  }
+  bindKeyHandlers() {
     document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener("keyup", keyUpHandler, false);  
+    document.addEventListener("keyup", keyUpHandler, false);
+  }
+  createMainCharacter() {
+    const img = new Image();
+    img.onload = () => {
+      this.ctx.drawImage(img, 100, 100);
+    };
+    img.src = "images/MainCharacterImages/adventurer-attack1-00.png"
+  }
 }
 
 function keyDownHandler(e) {
@@ -38,4 +36,5 @@ function keyUpHandler(e) {
   }
 }
 
-GameView.protoype.animate 
+
+module.exports = GameView;

@@ -69,7 +69,7 @@ class GameView {
     this.srcX = this.curFrame * width + width;
     this.ctx.clearRect(this.x, this.y, width * 2, height * 2);
 
-    if (this.left && this.x > -20){
+    if (this.left && (this.x > -20 || this.level.room !=1)){
       this.srcY = trackLeft * height;
       this.x -= this.speed;
     }
@@ -97,7 +97,17 @@ class GameView {
       this.y -= 155;
       this.jumping = false;
     }
-  }
+
+    if (this.x > 700){ 
+      this.scrollRight();
+      this.x = 20;
+    }
+
+    if (this.x < -20 && this.level.room != 1) {
+      this.scrollLeft();
+      this.x = 640;
+    }
+    }
 
   moveLeft(){
     this.left = true;
@@ -144,6 +154,26 @@ class GameView {
 
   else if (e.key === "w") {
      this.jumping = false;
+  }
+}
+
+scrollRight(){
+  this.level.room += 1
+  this.canvas.style.backgroundImage = `url("images/level${this.level.room}.png"`
+  if (this.level.room === 3){
+    this.canvas.style.backgroundPositionY = "110px";
+  } else {
+    this.canvas.style.backgroundPositionY = "-50px";
+  }
+}
+
+scrollLeft(){
+  this.level.room -= 1
+  this.canvas.style.backgroundImage = `url("images/level${this.level.room}.png"`
+  if (this.level.room === 3) {
+    this.canvas.style.backgroundPositionY = "110px";
+  } else {
+    this.canvas.style.backgroundPositionY = "-50px";
   }
 }
 }

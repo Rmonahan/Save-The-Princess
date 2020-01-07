@@ -2,25 +2,28 @@ const GameView = require("./game_view");
 
 
 class Level {
-  constructor(number, ctx) {
+  constructor(number, ctx, canvas) {
     this.items = [];
     this.room = number;
-    this.ctx = ctx;
-    this.addScene();
+    // this.backgroundCanvas = document.getElementById("myCanvas2");
+    // this.backgroundCtx = this.backgroundCanvas.getContext("2d");
+    this.canvas = canvas
   }
   addScene() {
+    // this.backgroundCtx.drawImage(this.canvas, 0, 0);
     if (this.room === 1) {
-      this.drawCastle();
+      // this.drawCastle();
     }
   }
   drawCastle() {
     const img = new Image();
     img.onload = () => {
-    this.ctx.drawImage(img, 100, 50, 800, 800, 0, 0, 800, 800);
+    // this.backgroundCtx.drawImage(img, 100, 50, 800, 800, 0, 0, 800, 800);
     };
     img.src = "images/castleScene.png";
 
   }
+
 }
 
 module.exports = Level;

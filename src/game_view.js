@@ -8,6 +8,7 @@ class GameView {
     this.flipPlayer = false;
     this.still = true;
     this.left = false;
+    this.facingLeft = false;
     this.right = false;
     this.jumping = false;
     this.jumpHeight = 0;
@@ -44,7 +45,7 @@ class GameView {
     this.trackLeft = 1;
     this.width = spriteWidth / cols;
     this.height = spriteHeight / rows;
-    this.curFrame = 1;
+    this.curFrame = 0;
     this.frameCount = 6;
     this.x = 220;
     this.y = 310;
@@ -56,7 +57,7 @@ class GameView {
   }
   mainLoop(time){
     this.updateFrame(this.width, this.height, this.frameCount, this.trackLeft, this.trackRight)
-    if (this.left === true){
+    if (this.facingLeft === true){
       this.ctx.scale(-1, 1);
       this.ctx.drawImage(this.character, this.srcX, this.srcY, this.width, this.height, (-this.x - (this.width * 2)), this.y, this.width * 2, this.height * 2);
       this.ctx.scale(-1, 1);    
@@ -70,6 +71,11 @@ class GameView {
   }
 
   updateFrame(width, height, frameCount, trackLeft, trackRight){
+
+    this.stillFrame = this.curFrame % 4
+    if (this.curFrame === 4) this.stillFrame = 3
+    
+    
     this.curFrame = (this.curFrame + 1) % frameCount;
     this.srcX = this.curFrame * width + width;
     this.ctx.clearRect(this.x, this.y, width * 2, height * 2);
@@ -141,19 +147,21 @@ class GameView {
     if (this.inAir === true) this.srcY = height * 2;
     else if (this.left === true) this.srcY = trackLeft * height;
     else if (this.right === true) this.srcY = trackRight * height;
-    else {this.srcX = width; this.srcY = 0;}
+    else {this.srcX = (this.stillFrame) * width; this.srcY = 0;}
   }
   
   moveLeft(){
     this.left = true;
     this.right = false;
     this.still = false;
+    this.facingLeft = true;
   }
 
   moveRight(){
     this.left = false;
     this.still = false;
     this.right = true;
+    this.facingLeft = false;
   }
 
   jump(){

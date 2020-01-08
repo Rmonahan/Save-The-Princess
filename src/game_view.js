@@ -27,6 +27,7 @@ class GameView {
   clear(){
     this.ctx.clearRect(0, 0, 700, 400);
     this.level.platforms = [];
+    this.level.items = [];
   }
 
   createScene(){
@@ -128,9 +129,11 @@ class GameView {
 
     for (let i=0; i < this.level.items.length; i++){
       const collisionName = this.collisionCheck(this.level.items[i])
-      if (collisionName === "key"){
-        debugger;
-        this.level.foundKey = true
+      if (collisionName === "key1"){
+        this.level.foundKey1 = true
+      }
+      if (collisionName === "key2") {
+        this.level.foundKey2 = true
       }
     }
 

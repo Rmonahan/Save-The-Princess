@@ -149,6 +149,13 @@ class GameView {
         this.level.keyCount += 1;
         this.level.foundKey2 = true
       }
+
+      if (collisionName === "key3") {
+        this.level.items = [];
+        this.ctx.clearRect(385, 250, 30, 30);
+        this.level.keyCount += 1;
+        this.level.foundKey3 = true
+      }
     }
 
     if (this.y > 500 ){

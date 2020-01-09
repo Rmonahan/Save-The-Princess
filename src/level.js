@@ -162,44 +162,38 @@ class Level {
       this.canvas.style.backgroundPositionX = "0px";
 
       platforms.push({
-        x: canvas.width - 700,
-        y: 70,
-        width: platformWidth + 100,
+        x: canvas.width - 660,
+        y: 140,
+        width: platformWidth - 100,
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 100,
+        x: canvas.width - 700,
         y: this.canvas.height - 170,
         width: platformWidth,
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 340,
+        x: canvas.width - 330,
         y: canvas.height - 120,
-        width: platformWidth - 100,
+        width: platformWidth - 120,
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 380,
-        y: canvas.height - 260,
-        width: platformWidth,
+        x: canvas.width - 200,
+        y: canvas.height - 170,
+        width: platformWidth + 100,
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 590,
-        y: canvas.height - 200,
-        width: platformWidth,
-        height: platformHeight,
-      });
-      platforms.push({
-        x: canvas.width - 700,
-        y: canvas.height - 40,
-        width: platformWidth,
+        x: canvas.width - 650,
+        y: canvas.height - 440,
+        width: platformWidth - 50,
         height: platformHeight,
       });
       if (this.foundKey2 === false)
         this.items.push({
-          name: "key2",
+          name: "key3",
           x: 385,
           y: 250,
           width: 30,
@@ -217,6 +211,8 @@ class Level {
       this.canvas.style.backgroundPositionX = "100px";
     }
     else if (this.room === 25){
+      this.canvas.style.backgroundPositionY = "0px";
+      this.canvas.style.backgroundPositionX = "-100px";
       this.ctx.font = 'bold 20pt Calibri';
       this.ctx.fillStyle = "white"
       this.ctx.fillText("You failed to save the Princess.", 170, 100);

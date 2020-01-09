@@ -1,3 +1,5 @@
+const Level = require("./level");
+
 class GameView {
   constructor(level, ctx, canvas, backgroundCtx) {
     this.ctx = ctx;
@@ -94,7 +96,7 @@ class GameView {
     
     if (this.inAir === true){
       this.speedY = 15
-      if (310 - this.y > this.speedY){
+      if (310 - this.y > this.speedY || (this.level.room != 1 && this.level.room != 25 && this.level.room != 0)){
         this.y += this.speedY;
       } else {
         this.y += 310 - this.y;
@@ -111,9 +113,9 @@ class GameView {
       }
     }
     
-    if (this.x > 700){ 
+    if (this.x > 670){ 
       this.scrollRight();
-      this.x = 20;
+      this.x = 10;
     }
     
     if (this.x < -20 && this.level.room != 1) {
@@ -136,12 +138,31 @@ class GameView {
     for (let i=0; i < this.level.items.length; i++){
       const collisionName = this.collisionCheck(this.level.items[i])
       if (collisionName === "key1"){
-        this.level.foundKey1 = true
+        this.level.foundKey1 = true;
+        this.ctx.clearRect(600, 270, 30, 30);
+        this.level.keyCount += 1;
+        this.level.items = [];
       }
       if (collisionName === "key2") {
+        this.level.items = [];
+        this.ctx.clearRect(385, 250, 30, 30);
+        this.level.keyCount += 1;
         this.level.foundKey2 = true
       }
     }
+
+    if (this.y > 500 ){
+      this.level.lives -= 1;
+      this.y = 10;
+      this.x = 20;
+      this.reset();
+    }
+
+    if (this.level.lives === 0){
+      this.gameOver();
+    }
+
+
 
     if (this.y === 310) this.inAir = false;
     if (this.inAir === true) this.srcY = height * 2;
@@ -182,13 +203,22 @@ class GameView {
   else if (e.key === "a") {
     this.moveLeft();
   }
-  if (e.key === "w" && e.repeat === false && (this.y === 310 || this.speedY === 0)) {
+  if (e.key === "w" && e.repeat === false && (this.y === 310 || this.speedY === 0) && this.y <= 310) {
     this.jump();
   }
 
   if (e.key === "r" && this.level.room === 4 && this.x > 300 && this.x < 350 && e.repeat === false){
     this.enter();
   }
+
+  if ((e.key === " " || e.key === "space") && this.level.room === 25 && e.repeat === false){
+    this.restart();
+  }
+
+  if ((e.key === " " || e.key === "space") && this.level.room === 0 && e.repeat === false) {
+    this.start();
+  }
+
 }
 
  keyUpHandler(e) {
@@ -244,19 +274,44 @@ collisionCheck(platform){
 }
 
 scrollRight(){
-  this.level.room += 1
+  if (this.level.room !== 25 && this.level.room !== 0) this.level.room += 1
   this.clear();
   this.level.addScene();
 }
 
 scrollLeft(){
-  this.level.room -= 1
+  if (this.level.room !== 25 && this.level.room !== 0) this.level.room -= 1
   this.clear();
   this.level.addScene();
 }
 
 enter(){
   this.level.room += 1
+  this.level.addScene();
+}
+
+start(){
+  this.level.room += 1;
+  this.clear();
+  this.level.addScene();
+  this.x = 220;
+  this.y = 310;
+}
+
+reset(){
+  this.clear();
+  this.level.addScene();
+}
+gameOver(){
+  this.clear();
+  this.level.room = 25
+  this.level.addScene();
+}
+
+restart(){
+  let newLevel = new Level(0, this.ctx, this.canvas);
+  this.level = newLevel;
+  this.clear();
   this.level.addScene();
 }
 }

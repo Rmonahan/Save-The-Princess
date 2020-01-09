@@ -5,6 +5,8 @@ class Level {
     this.items = [];
     this.canvas = canvas
     this.platforms = [];
+    this.platformPic = new Image();
+    this.platformPic.src = "dist/images/platform.png";
     this.platformWidth = 150;
     this.platformHeight = 20;
     this.heart = new Image();

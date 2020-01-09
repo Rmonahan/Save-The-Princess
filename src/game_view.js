@@ -22,6 +22,7 @@ class GameView {
     this.x = 300;
     this.y = 310;
     this.speed = 12;
+    this.superMode = false;
     this.character = new Image();
     this.createScene();
     window.requestAnimationFrame(this.mainLoop.bind(this));
@@ -67,9 +68,17 @@ class GameView {
     else {
     this.ctx.drawImage(this.character, this.srcX, this.srcY, this.width, this.height, this.x, this.y, this.width*2, this.height*2)
     }
-    setTimeout(() =>{
-    window.requestAnimationFrame(this.mainLoop.bind(this))
-    }, 100)
+
+    if (this.superMode === false){
+      setTimeout(() =>{
+      window.requestAnimationFrame(this.mainLoop.bind(this))
+      }, 100)
+    }
+    else {
+      setTimeout(() => {
+        window.requestAnimationFrame(this.mainLoop.bind(this))
+      }, 40)
+    }
   }
 
   updateFrame(width, height, frameCount, trackLeft, trackRight){
@@ -99,7 +108,7 @@ class GameView {
     
     if (this.inAir === true){
       this.speedY = 15
-      if (310 - this.y > this.speedY || (this.level.room != 1 && this.level.room != 25 && this.level.room != 0)){
+      if (310 - this.y > this.speedY || (this.level.room != 1 && this.level.room != 25 && this.level.room != 0 && this.superMode === false)){
         this.y += this.speedY;
       } else {
         this.y += 310 - this.y;
@@ -228,6 +237,10 @@ class GameView {
   if ((e.key === " " || e.key === "space") && this.level.room === 0 && e.repeat === false) {
     this.start();
   }
+
+  if ((e.key === "p") && this.level.room === 1 && e.repeat === false) {
+      this.superMode = !this.superMode;
+    }
 
 }
 

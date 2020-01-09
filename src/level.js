@@ -192,7 +192,7 @@ class Level {
         width: platformWidth - 50,
         height: platformHeight,
       });
-      if (this.foundKey2 === false)
+      if (this.foundKey3 === false)
         this.items.push({
           name: "key3",
           x: 385,

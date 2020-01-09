@@ -65,13 +65,13 @@ class Level {
         height: platformHeight + 800,
       });
       platforms.push({
-        x: canvas.width - 380,
+        x: canvas.width - 390,
         y: canvas.height - 120,
         width: platformWidth,
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 380,
+        x: canvas.width - 390,
         y: canvas.height - 240,
         width: platformWidth,
         height: platformHeight,

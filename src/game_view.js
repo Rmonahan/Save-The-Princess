@@ -115,7 +115,7 @@ class GameView {
     
     if (this.x > 670){ 
       this.scrollRight();
-      this.x = 10;
+      this.x = -20;
     }
     
     if (this.x < -20 && this.level.room != 1) {

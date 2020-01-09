@@ -34,7 +34,6 @@ class Level {
     if (this.room === 0) {
       this.ctx.font = 'bold 10pt Calibri';
       this.ctx.fillStyle = "white"
-      this.ctx.fillText("Introduction:", 30, 30)
       this.ctx.fillText("You control Henry who is a coal miner from the kingdom of Tromide.", 30, 50);
       this.ctx.fillText("He has always kept a low profile, determined to do his job and then enjoy the peace and quiet of his home.", 30, 70);
       this.ctx.fillText("He never made an effort to be known or make friends. No one knew him personally and he liked it that way.", 30, 90);
@@ -176,7 +175,7 @@ class Level {
         height: platformHeight,
       });
       platforms.push({
-        x: canvas.width - 330,
+        x: canvas.width - 315,
         y: canvas.height - 120,
         width: platformWidth - 120,
         height: platformHeight,

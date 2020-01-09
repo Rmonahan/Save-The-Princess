@@ -13,12 +13,12 @@ class Level {
     this.foundKey1 = false;
     this.foundKey2 = false;
     this.key1 = new Image();
-    this.key1.src = "images/KeyIcons.png"
+    this.key1.src = "dist/images/KeyIcons.png"
     this.key2 = new Image();
-    this.key2.src = "images/KeyIcons.png"
+    this.key2.src = "dist/images/KeyIcons.png"
   }
   addScene() {
-    this.canvas.style.backgroundImage = `url("images/level${this.room}.png"`
+    this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
     platforms = this.platforms;
     canvas = this.canvas;
     platformWidth = this.platformWidth;

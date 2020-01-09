@@ -53,7 +53,7 @@ class GameView {
     this.srcY= this.trackRight * this.height;
     this.speedX = 15;
     this.speedY = 15;
-    this.character.src = "images/adventurer-Sheet.png";
+    this.character.src = "dist/images/adventurer-Sheet.png";
   }
   mainLoop(time){
     this.updateFrame(this.width, this.height, this.frameCount, this.trackLeft, this.trackRight)

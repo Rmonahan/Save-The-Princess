@@ -102,7 +102,7 @@ class Level {
         this.items.push({
           name: "key1",
           x: 600,
-          y: 270,
+          y: 240,
           width: 30,
           height: 30
         })
@@ -261,7 +261,7 @@ class Level {
   }
 
   draw_key1(){
-    this.ctx.drawImage(this.key1, 0, 0, 32, 32, 600, 270, 30, 30);
+    this.ctx.drawImage(this.key1, 0, 0, 32, 32, 600, 240, 30, 30);
   }
 
   draw_key2(){

@@ -151,7 +151,7 @@ class GameView {
       const collisionName = this.collisionCheck(this.level.items[i])
       if (collisionName === "key1"){
         this.level.foundKey1 = true;
-        this.ctx.clearRect(600, 270, 30, 30);
+        this.ctx.clearRect(600, 240, 30, 30);
         this.level.keyCount += 1;
         this.level.items = [];
       }

@@ -322,6 +322,7 @@ scrollLeft(){
 
 enter(){
   this.level.room += 1
+  this.x = -20;
   this.clear();
   this.level.addScene();
 }

@@ -495,35 +495,45 @@ class Level {
       
       if (x < 250 && this.firstScene === true){
         this.drawTextBox(390, 290, 150, 40, 5);
-        this.ctx.font = 'bold 8pt Calibri';
+        this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
-        this.ctx.fillText("Please save me!", 400 , 310);
-        this.ctx.fillText("The evil knight is coming!", 400, 320);
+        this.ctx.fillText("Please save me! The", 400 , 310);
+        this.ctx.fillText("evil knight is coming!", 400, 320);
       } else {
         this.ctx.clearRect(390, 290, 150, 40);
       }
+      row = 1;
       if (x > 260 && this.firstScene === true){
         col = (currentFrame) % 10;
         if (this.goldKnightX > 350) {
           this.goldKnightX -= 5;
           row = 2;
         }
-         else{
-            row = 1;
-          }
         this.disabled = true;
         this.ctx.scale(-1, 1);
         this.ctx.drawImage(this.goldKnight, 32 * col, row * 32, 32, 32, -this.goldKnightX - 85, 300, 85, 85);
         this.ctx.scale(-1, 1);
       }
 
+      if (this.goldKnightX > 360 && this.goldKnightX < 600)
+      {
+        this.drawTextBox(100, 230, 180, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Hey you big dummy, that", 110, 252);
+        this.ctx.fillText("is walking weird. You", 110, 262);
+        this.ctx.fillText("better let the princess go!", 110, 272);
+      }
+
       if (this.goldKnightX === 350){
+        this.ctx.clearRect(100, 230, 220, 50);
         this.drawTextBox(240, 230, 150, 50, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
         this.ctx.fillText("Oh man thank god you", 250, 250);
         this.ctx.fillText("are here. Everyone has", 250, 260);
         this.ctx.fillText("it all wrong.", 260, 270);
+
         // this.ctx.drawImage(this.princess, 81 * col, row * 82, 81, 82, princessX, 300, 85, 85);
       }
 

@@ -49,6 +49,7 @@ class GameView {
     this.width = spriteWidth / cols;
     this.height = spriteHeight / rows;
     this.curFrame = 0;
+    this.oldFrame = 0;
     this.frameCount = 6;
     this.x = 220;
     this.y = 310;
@@ -82,7 +83,7 @@ class GameView {
   }
 
   updateFrame(width, height, frameCount, trackLeft, trackRight){
-    
+    this.oldFrame = this.oldFrame + 1;
     
     this.curFrame = (this.curFrame + 1) % frameCount;
     if (this.curFrame === 1) this.stillFrame = 1;
@@ -93,22 +94,22 @@ class GameView {
     if (this.curFrame === 6) this.stillFrame = 1;
     this.srcX = this.curFrame * width + width;
     this.ctx.clearRect(this.x, this.y, width * 2, height * 2);
-    this.level.updateScene(this.x, this.y, this.curFrame);
+    this.level.updateScene(this.x, this.y, this.oldFrame);
     this.inAir = true;
 
-    if (this.left && (this.x > -20 || this.level.room !=1)){
+    if (this.left && this.level.disabled === false && (this.x > -20 || (this.level.room !=1 && this.level.room != 7))){
       this.speedX = 15;
       this.x -= this.speedX;
     }
     
-    if (this.right){
+    if (this.right && this.level.disabled === false){
       this.speedX = 15;
       this.x += this.speedX;
     }
     
     if (this.inAir === true){
       this.speedY = 15
-      if (310 - this.y > this.speedY || (this.level.room != 1 && this.level.room != 25 && this.level.room != 0 && this.superMode === false)){
+      if (310 - this.y > this.speedY || (this.level.room != 1 && this.level.room != 7 && this.level.room != 25 && this.level.room != 0 && this.superMode === false)){
         this.y += this.speedY;
       } else {
         this.y += 310 - this.y;
@@ -130,7 +131,7 @@ class GameView {
       this.x = -20;
     }
     
-    if (this.x < -20 && this.level.room != 1) {
+    if (this.x < -20 && this.level.room != 1 && this.level.room != 7) {
       this.scrollLeft();
       this.x = 640;
     }
@@ -308,19 +309,20 @@ collisionCheck(platform){
 }
 
 scrollRight(){
-  if (this.level.room !== 25 && this.level.room !== 0) this.level.room += 1
+  if (this.level.room !== 25 && (this.level.room !== 0)) this.level.room += 1
   this.clear();
   this.level.addScene();
 }
 
 scrollLeft(){
-  if (this.level.room !== 25 && this.level.room !== 0) this.level.room -= 1
+  if (this.level.room !== 25 && (this.level.room !== 0 || this.level.room !== 7)) this.level.room -= 1
   this.clear();
   this.level.addScene();
 }
 
 enter(){
   this.level.room += 1
+  this.clear();
   this.level.addScene();
 }
 

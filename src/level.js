@@ -12,10 +12,12 @@ class Level {
     this.heart = new Image();
     this.heart.src = "dist/images/heart.png";
     this.lives = 3;
+    this.disabled = false;
     this.foundKey1 = false;
     this.foundKey2 = false;
     this.foundKey3 = false;
     this.foundKey4 = false;
+    this.firstScene = true;
     this.key1 = new Image();
     this.key1.src = "dist/images/KeyIcons.png";
     this.key2 = new Image();
@@ -28,7 +30,12 @@ class Level {
     this.keys.src = "dist/images/KeyIcons.png";
     this.keyCount = 0;
     this.greenKnight = new Image();
-    this.greenKnight.src = "dist/images/MitheralKnight.png"
+    this.greenKnight.src = "dist/images/MitheralKnight.png";
+    this.princess = new Image();
+    this.princess.src = "dist/images/princess.png";
+    this.goldKnight = new Image();
+    this.goldKnight.src = "dist/images/GoldKnight.png"
+    this.goldKnightX = 700;
   }
   addScene() {
     this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
@@ -100,7 +107,7 @@ class Level {
         x: canvas.width - 170,
         y: this.canvas.height - 40,
         width: platformWidth + 20,
-        height: platformHeight,
+        height: platformHeight + 30,
       });
       if (this.foundKey1 === false){
         this.items.push({
@@ -294,9 +301,9 @@ class Level {
       });
     }
     
-    else if (this.room === 8){
-      this.canvas.style.backgroundPositionY = "-50px";
-      this.canvas.style.backgroundPositionX = "100px";
+    else if (this.room === 7){
+      this.canvas.style.backgroundPositionY = "0px";
+      this.canvas.style.backgroundPositionX = "0";
     }
     else if (this.room === 25){
       this.canvas.style.backgroundPositionY = "0px";
@@ -328,7 +335,8 @@ class Level {
   draw_platforms() {
     this.ctx.fillStyle = "black";
     for (let i = 0; i < platforms.length; i++) {
-      this.ctx.fillRect(platforms[i].x, platforms[i].y, platforms[i].width, platforms[i].height);
+      // this.ctx.fillRect(platforms[i].x, platforms[i].y, platforms[i].width, platforms[i].height);
+      this.ctx.drawImage(this.platformPic, 0, 0, 96, 96, platforms[i].x, platforms[i].y, platforms[i].width, platforms[i].height);
     }
   }
 
@@ -364,6 +372,7 @@ class Level {
   }
 
   updateScene(x, y, currentFrame){
+    let col;
     if (this.room != 0 && this.room != 25){
     this.drawKeyCount();
     this.drawHeart();
@@ -471,6 +480,54 @@ class Level {
           this.ctx.clearRect(260, 270, 150, 25);
         }
       }
+    }
+
+    else if (this.room === 7){
+       col = 7;
+        if (currentFrame % 8 === 0){
+         col = 8;
+        }
+        row = 2;
+        let princessX = 500;
+        this.ctx.clearRect(this.goldKnightX, 300, 85, 85)
+        this.ctx.clearRect(princessX, 300, 85, 85);
+        this.ctx.drawImage(this.princess, 81 * col, row * 82, 81, 82, princessX, 300, 85, 85);
+      
+      if (x < 250 && this.firstScene === true){
+        this.drawTextBox(390, 290, 150, 40, 5);
+        this.ctx.font = 'bold 8pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Please save me!", 400 , 310);
+        this.ctx.fillText("The evil knight is coming!", 400, 320);
+      } else {
+        this.ctx.clearRect(390, 290, 150, 40);
+      }
+      if (x > 260 && this.firstScene === true){
+        col = (currentFrame) % 10;
+        if (this.goldKnightX > 350) {
+          this.goldKnightX -= 5;
+          row = 2;
+        }
+         else{
+            row = 1;
+          }
+        this.disabled = true;
+        this.ctx.scale(-1, 1);
+        this.ctx.drawImage(this.goldKnight, 32 * col, row * 32, 32, 32, -this.goldKnightX - 85, 300, 85, 85);
+        this.ctx.scale(-1, 1);
+      }
+
+      if (this.goldKnightX === 350){
+        this.drawTextBox(240, 230, 150, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Oh man thank god you", 250, 250);
+        this.ctx.fillText("are here. Everyone has", 250, 260);
+        this.ctx.fillText("it all wrong.", 260, 270);
+        // this.ctx.drawImage(this.princess, 81 * col, row * 82, 81, 82, princessX, 300, 85, 85);
+      }
+
+
     }
 
 

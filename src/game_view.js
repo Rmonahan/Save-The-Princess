@@ -93,7 +93,7 @@ class GameView {
     if (this.curFrame === 6) this.stillFrame = 1;
     this.srcX = this.curFrame * width + width;
     this.ctx.clearRect(this.x, this.y, width * 2, height * 2);
-    this.level.updateScene(this.x, this.y);
+    this.level.updateScene(this.x, this.y, this.curFrame);
     this.inAir = true;
 
     if (this.left && (this.x > -20 || this.level.room !=1)){
@@ -168,6 +168,13 @@ class GameView {
         this.level.keyCount += 1;
         this.level.foundKey3 = true
       }
+
+      if (collisionName === "key4") {
+        this.level.items = [];
+        this.ctx.clearRect(225, 340, 30, 30);
+        this.level.keyCount += 1;
+        this.level.foundKey4 = true
+      }
     }
 
     if (this.y > 500 ){
@@ -226,7 +233,7 @@ class GameView {
     this.jump();
   }
 
-  if (e.key === "r" && this.level.room === 4 && this.x > 300 && this.x < 350 && e.repeat === false){
+  if (e.key === "r" && this.level.room === 6 && this.x > 260 && this.x < 350 && e.repeat === false && this.foundKeys() === true){
     this.enter();
   }
 
@@ -256,6 +263,10 @@ class GameView {
 
   else if (e.key === "w") {
   }
+}
+
+foundKeys(){
+  return this.level.foundKey1 && this.level.foundKey2 && this.level.foundKey3 && this.level.foundKey4
 }
 
 collisionCheck(platform){

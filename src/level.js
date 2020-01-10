@@ -15,15 +15,20 @@ class Level {
     this.foundKey1 = false;
     this.foundKey2 = false;
     this.foundKey3 = false;
+    this.foundKey4 = false;
     this.key1 = new Image();
     this.key1.src = "dist/images/KeyIcons.png";
     this.key2 = new Image();
     this.key2.src = "dist/images/KeyIcons.png";
     this.key3 = new Image();
     this.key3.src = "dist/images/KeyIcons.png";
+    this.key4 = new Image();
+    this.key4.src = "dist/images/KeyIcons.png";
     this.keys = new Image();
     this.keys.src = "dist/images/KeyIcons.png";
     this.keyCount = 0;
+    this.greenKnight = new Image();
+    this.greenKnight.src = "dist/images/MitheralKnight.png"
   }
   addScene() {
     this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
@@ -41,7 +46,6 @@ class Level {
       this.ctx.fillText("it wasn't something he was interested in getting involved in. As he was walking to work he saw a flier offering", 30, 130);
       this.ctx.fillText("a major reward to anyone that can help save the princess. The one thing Henry does care for is money.", 30, 150);
       this.ctx.fillText("He needs to find the 4 keys to get into the enemy castle and save the princess. This is where his story begins. ", 30, 170);
-      this.ctx.fillText("As you progress through the game you will discover more and more about Henry, the kingdom and the history.", 30, 190);
       this.ctx.font = '16pt Calibri';
       this.ctx.fillStyle = "white"
       this.ctx.fillText('Press Spacebar to start.', 230, 215);
@@ -200,11 +204,94 @@ class Level {
           width: 30,
           height: 30
         })
-    }
+      }
     
     else if (this.room === 5){
-      this.canvas.style.backgroundPositionY = "40px";
-      this.canvas.style.backgroundPositionX = "-100px";
+      this.canvas.style.backgroundPositionY = "0px";
+      this.canvas.style.backgroundPositionX = "0px";
+
+      platforms.push({
+        x: canvas.width - 600,
+        y: 75,
+        width: platformWidth,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 700,
+        y: this.canvas.height - 170,
+        width: platformWidth,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 550,
+        y: this.canvas.height - 240,
+        width: platformWidth - 130,
+        height: platformHeight + 70,
+      });
+      platforms.push({
+        x: canvas.width - 475,
+        y: canvas.height - 30,
+        width: platformWidth - 120,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 530,
+        y: canvas.height - 240,
+        width: platformWidth - 20,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 140,
+        y: canvas.height - 170,
+        width: platformWidth + 100,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 300,
+        y: canvas.height - 550,
+        width: platformWidth,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 700,
+        y: canvas.height - 30,
+        width: platformWidth - 50,
+        height: platformHeight,
+      });
+
+      if (this.foundKey4 === false){
+        this.items.push({
+          name: "key4",
+          x: 225,
+          y: 340,
+          width: 30,
+          height: 30
+        })
+      }
+    }
+    else if (this.room === 6) {
+      this.canvas.style.backgroundPositionY = "-50px";
+      this.canvas.style.backgroundPositionX = "100px";
+
+      platforms.push({
+        x: canvas.width - 600,
+        y: canvas.height - 22,
+        width: platformWidth + 200,
+        height: platformHeight,
+      });
+
+      platforms.push({
+        x: canvas.width - 700,
+        y: canvas.height - 170,
+        width: platformWidth - 70,
+        height: platformHeight,
+      });
+      platforms.push({
+        x: canvas.width - 670,
+        y: canvas.height - 80,
+        width: platformWidth - 70,
+        height: platformHeight,
+      });
     }
     
     else if (this.room === 8){
@@ -272,7 +359,11 @@ class Level {
     this.ctx.drawImage(this.key3, 64, 0, 32, 32, 385, 250, 30, 30);
   }
 
-  updateScene(x, y){
+  draw_key4() {
+    this.ctx.drawImage(this.key4, 96, 0, 32, 32, 225, 340, 30, 30);
+  }
+
+  updateScene(x, y, currentFrame){
     if (this.room != 0 && this.room != 25){
     this.drawKeyCount();
     this.drawHeart();
@@ -329,6 +420,56 @@ class Level {
       this.draw_platforms();
       if (this.foundKey3 === false) {
         this.draw_key3();
+      } else {
+        platforms.push({
+          x: canvas.width - 500,
+          y: this.canvas.height - 200,
+          width: platformWidth,
+          height: platformHeight,
+        });
+      }
+
+      if (this.foundKey4 === true){
+        platforms.push({
+          x: canvas.width - 300,
+          y: canvas.height - 30,
+          width: platformWidth + 300,
+          height: platformHeight,
+        });
+      }
+    }
+
+    else if (this.room === 5){
+      this.draw_platforms();
+      if (this.foundKey4 === false){
+        this.draw_key4();
+      }  
+    }
+
+    else if (this.room === 6){
+      this.draw_platforms();
+
+      if (this.foundKey1 === false || this.foundKey2 === false || this.foundKey3 === false || this.foundKey4 === false){
+        col = currentFrame % 10
+        this.ctx.clearRect(320, 310, 65, 65);
+        this.ctx.scale(-1, 1);
+        this.ctx.drawImage(this.greenKnight, 32 * col, 0, 32, 32, -385, 310, 65, 65);
+        this.ctx.scale(-1, 1);
+        this.drawTextBox(220, 270, 120, 50, 5)
+        this.ctx.font = 'bold 8pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("You must have all 4", 230, 290);
+        this.ctx.fillText('keys to enter the castle.', 230, 300);
+      } else {
+        this.ctx.clearRect(220, 270, 120, 50);
+        if (x > 260 && x < 350){
+          this.drawTextBox(260, 270, 150, 25, 5);
+          this.ctx.font = 'bold 8pt Calibri';
+          this.ctx.fillStyle = "black"
+          this.ctx.fillText("Press R to enter the castle.", 270, 290);
+        } else {
+          this.ctx.clearRect(260, 270, 150, 25);
+        }
       }
     }
 

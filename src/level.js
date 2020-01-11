@@ -18,6 +18,7 @@ class Level {
     this.foundKey3 = false;
     this.foundKey4 = false;
     this.firstScene = true;
+    this.secondScene = true;
     this.key1 = new Image();
     this.key1.src = "dist/images/KeyIcons.png";
     this.key2 = new Image();
@@ -33,6 +34,7 @@ class Level {
     this.greenKnight.src = "dist/images/MitheralKnight.png";
     this.princess = new Image();
     this.princess.src = "dist/images/princess.png";
+    this.princessX = 500;
     this.goldKnight = new Image();
     this.goldKnight.src = "dist/images/GoldKnight.png"
     this.goldKnightX = 700;
@@ -372,7 +374,11 @@ class Level {
   }
 
   updateScene(x, y, currentFrame){
-    let col;
+    let princessCol;
+    let princessRow = 2;
+    let knightCol;
+    let knightRow;
+
     if (this.room != 0 && this.room != 25){
     this.drawKeyCount();
     this.drawHeart();
@@ -483,58 +489,78 @@ class Level {
     }
 
     else if (this.room === 7){
-       col = 7;
+      this.ctx.clearRect(this.princessX, 300, 85, 85);
+      this.ctx.clearRect(this.goldKnightX, 300, 85, 85)
+      if (this.firstScene === true){
+       princessCol = 7;
         if (currentFrame % 8 === 0){
-         col = 8;
+         princessCol = 8;
         }
-        row = 2;
-        let princessX = 500;
-        this.ctx.clearRect(this.goldKnightX, 300, 85, 85)
-        this.ctx.clearRect(princessX, 300, 85, 85);
-        this.ctx.drawImage(this.princess, 81 * col, row * 82, 81, 82, princessX, 300, 85, 85);
+        this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
+      }
       
-      if (x < 250 && this.firstScene === true){
+      if (x < 250){
         this.drawTextBox(390, 290, 150, 40, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
         this.ctx.fillText("Please save me! The", 400 , 310);
-        this.ctx.fillText("evil knight is coming!", 400, 320);
+        this.ctx.fillText("evil knight is coming!", 400, 323);
       } else {
         this.ctx.clearRect(390, 290, 150, 40);
       }
-      row = 1;
-      if (x > 260 && this.firstScene === true){
-        col = (currentFrame) % 10;
+      knightRow = 1;
+      if (x > 260){
+        knightCol = (currentFrame) % 10;
         if (this.goldKnightX > 350) {
           this.goldKnightX -= 5;
-          row = 2;
+          knightRow = 2;
         }
         this.disabled = true;
         this.ctx.scale(-1, 1);
-        this.ctx.drawImage(this.goldKnight, 32 * col, row * 32, 32, 32, -this.goldKnightX - 85, 300, 85, 85);
+        this.ctx.drawImage(this.goldKnight, 32 * knightCol, knightRow * 32, 32, 32, -this.goldKnightX - 85, 300, 85, 85);
         this.ctx.scale(-1, 1);
       }
 
       if (this.goldKnightX > 360 && this.goldKnightX < 600)
       {
-        this.drawTextBox(100, 230, 180, 50, 5);
+        this.drawTextBox(130, 250, 180, 50, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
-        this.ctx.fillText("Hey you big dummy, that", 110, 252);
-        this.ctx.fillText("is walking weird. You", 110, 262);
-        this.ctx.fillText("better let the princess go!", 110, 272);
+        this.ctx.fillText("Hey you big dummy. You", 140, 272);
+        this.ctx.fillText("better let the princess go!", 140, 285);
       }
 
-      if (this.goldKnightX === 350){
-        this.ctx.clearRect(100, 230, 220, 50);
-        this.drawTextBox(240, 230, 150, 50, 5);
+      if (this.goldKnightX === 350 && this.princessX != 390){
+        this.firstScene = false;
+        princessCol = currentFrame % 2;
+        if (this.princessX > 390){
+        this.princessX -= 5;
+        }
+        this.ctx.clearRect(130, 250, 180, 55);
+        this.drawTextBox(210, 230, 170, 50, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
-        this.ctx.fillText("Oh man thank god you", 250, 250);
-        this.ctx.fillText("are here. Everyone has", 250, 260);
-        this.ctx.fillText("it all wrong.", 260, 270);
+        this.ctx.fillText("Thank god you are here.", 220, 250);
+        this.ctx.fillText("Everyone has it all wrong", 220, 265);
+        this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
+      }
 
-        // this.ctx.drawImage(this.princess, 81 * col, row * 82, 81, 82, princessX, 300, 85, 85);
+      if (this.princessX === 390){
+        this.ctx.clearRect(210, 230, 170, 80);
+        this.drawTextBox(460, 270, 180, 50, 5);
+        if (this.secondScene === true){
+          princessCol = Math.floor((currentFrame % 17) / 4);
+        } else {
+          princessCol = Math.floor((currentFrame % 20) / 10);
+        }
+        if (princessCol === 4){
+          this.secondScene = false;
+        }
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("How cute. You thought I was", 470, 290);
+        this.ctx.fillText("the one that needed saving.", 470, 305);
+        this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
       }
 
 

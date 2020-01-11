@@ -8,6 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // backgroundCanvas = document.getElementById("myCanvas2");
   // backgroundCtx = backgroundCanvas.getContext("2d");
  
-  let level = new Level(7, ctx, canvas);
+  let level = new Level(1, ctx, canvas);
   new GameView(level, ctx, canvas);
 });

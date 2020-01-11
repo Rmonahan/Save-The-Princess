@@ -86,12 +86,7 @@ class GameView {
     this.oldFrame = this.oldFrame + 1;
     
     this.curFrame = (this.curFrame + 1) % frameCount;
-    if (this.curFrame === 1) this.stillFrame = 1;
-    if (this.curFrame === 2) this.stillFrame = 2;
-    if (this.curFrame === 3) this.stillFrame = 3;
-    if (this.curFrame === 4) this.stillFrame = 3;
-    if (this.curFrame === 5) this.stillFrame = 2;
-    if (this.curFrame === 6) this.stillFrame = 1;
+    this.stillFrame = Math.floor((this.oldFrame % 9) / 3)
     this.srcX = this.curFrame * width + width;
     this.ctx.clearRect(this.x, this.y, width * 2, height * 2);
     this.level.updateScene(this.x, this.y, this.oldFrame);
@@ -195,7 +190,10 @@ class GameView {
     if (this.inAir === true) this.srcY = height * 2;
     else if (this.left === true) this.srcY = trackLeft * height;
     else if (this.right === true) this.srcY = trackRight * height;
-    else {this.srcX = (this.stillFrame) * width; this.srcY = 0;}
+    else {
+      this.srcX = (this.stillFrame) * width; 
+      this.srcY = 0;
+    }
   }
   
   moveLeft(){

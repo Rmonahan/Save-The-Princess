@@ -59,7 +59,7 @@ class Level {
       this.ctx.fillText("He needs to find the 4 keys to get into the enemy castle and save the princess. This is where his story begins. ", 30, 170);
       this.ctx.font = '16pt Calibri';
       this.ctx.fillStyle = "white"
-      this.ctx.fillText('Press Spacebar to start.', 230, 215);
+      this.ctx.fillText('Press C to start.', 260, 215);
     }
     if (this.room === 1) {
       this.canvas.style.backgroundPositionY = "-20px";
@@ -315,7 +315,7 @@ class Level {
       this.ctx.font = 'bold 20pt Calibri';
       this.ctx.fillStyle = "white"
       this.ctx.fillText("You failed to save the Princess.", 170, 100);
-      this.ctx.fillText('Press Spacebar to try again.', 180, 150);
+      this.ctx.fillText('Press C to try again.', 220, 150);
     }
   }
 
@@ -483,7 +483,7 @@ class Level {
           this.drawTextBox(260, 270, 150, 25, 5);
           this.ctx.font = 'bold 8pt Calibri';
           this.ctx.fillStyle = "black"
-          this.ctx.fillText("Press R to enter the castle.", 270, 290);
+          this.ctx.fillText("Press C to enter the castle.", 270, 290);
         } else {
           this.ctx.clearRect(260, 270, 150, 25);
         }
@@ -588,13 +588,13 @@ class Level {
     }
 
 
-    else if (this.room === 25){
-      this.drawTextBox(400, 260, 100, 50, 5)
-      this.ctx.font = 'bold 20pt Calibri';
-      this.ctx.fillStyle = "white"
-      this.ctx.fillText("Game Over", 410, 280);
-      this.ctx.fillText('Press Spacebar to try again.', 410, 290);
-    }
+    // else if (this.room === 25){
+    //   this.drawTextBox(400, 260, 100, 50, 5)
+    //   this.ctx.font = 'bold 20pt Calibri';
+    //   this.ctx.fillStyle = "white"
+    //   this.ctx.fillText("Game Over", 410, 280);
+    //   this.ctx.fillText('Press C to try again.', 410, 290);
+    // }
 }
 }
 

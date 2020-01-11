@@ -232,15 +232,15 @@ class GameView {
     this.jump();
   }
 
-  if (e.key === "r" && this.level.room === 6 && this.x > 260 && this.x < 350 && e.repeat === false && this.foundKeys() === true){
+  if (e.key === "c" && this.level.room === 6 && this.x > 260 && this.x < 350 && e.repeat === false && this.foundKeys() === true){
     this.enter();
   }
 
-  if ((e.key === " " || e.key === "space") && this.level.room === 25 && e.repeat === false){
+  if (e.key === "c" && this.level.room === 25 && e.repeat === false){
     this.restart();
   }
 
-  if ((e.key === " " || e.key === "space") && this.level.room === 0 && e.repeat === false) {
+  if (e.key === "c" && this.level.room === 0 && e.repeat === false) {
     this.start();
   }
 

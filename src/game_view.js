@@ -222,13 +222,13 @@ class GameView {
   }
 
   keyDownHandler(e) {
-  if (e.key === "d") {
+  if (e.key === "d" || e.keyCode === 39) {
     this.moveRight();
   }
-  else if (e.key === "a") {
+  else if (e.key === "a" || e.keyCode === 37) {
     this.moveLeft();
   }
-  if (e.key === "w" && e.repeat === false && (this.y === 310 || this.speedY === 0) && this.y <= 310) {
+  if ((e.key === "w" || e.keyCode === 38) && e.repeat === false && (this.y === 310 || this.speedY === 0) && this.y <= 310) {
     this.jump();
   }
 
@@ -251,16 +251,13 @@ class GameView {
 }
 
  keyUpHandler(e) {
-  if (e.key === "d") {
+   if (e.key === "d" || e.keyCode === 39) {
     this.right = false;
     this.still = true;
   }
-  else if (e.key === "a") {
+   else if (e.key === "a" || e.keyCode === 37) {
     this.left = false;
     this.still = true;
-  }
-
-  else if (e.key === "w") {
   }
 }
 
@@ -307,13 +304,13 @@ collisionCheck(platform){
 }
 
 scrollRight(){
-  if (this.level.room !== 25 && (this.level.room !== 0)) this.level.room += 1
+  if (this.level.room !== 25 && (this.level.room !== 0 && this.level.room !== 7)) this.level.room += 1
   this.clear();
   this.level.addScene();
 }
 
 scrollLeft(){
-  if (this.level.room !== 25 && (this.level.room !== 0 || this.level.room !== 7)) this.level.room -= 1
+  if (this.level.room !== 25 && (this.level.room !== 0 && this.level.room !== 7)) this.level.room -= 1
   this.clear();
   this.level.addScene();
 }

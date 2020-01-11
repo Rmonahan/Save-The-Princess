@@ -57,8 +57,8 @@ class Level {
       this.ctx.fillText("it wasn't something he was interested in getting involved in. As he was walking to work he saw a flier offering", 30, 130);
       this.ctx.fillText("a major reward to anyone that can help save the princess. The one thing Henry does care for is money.", 30, 150);
       this.ctx.fillText("He needs to find the 4 keys to get into the enemy castle and save the princess. This is where his story begins. ", 30, 170);
+      this.ctx.fillText("Use the left, right, up arrow keys or A and D to move left/right and W to jump. Note: There is no double jump.", 30, 190 )
       this.ctx.font = '16pt Calibri';
-      this.ctx.fillStyle = "white"
       this.ctx.fillText('Press C to start.', 260, 215);
     }
     if (this.room === 1) {

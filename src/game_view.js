@@ -13,6 +13,7 @@ class GameView {
     this.facingLeft = false;
     this.right = false;
     this.jumping = false;
+    this.swordSwipe = 0;
     this.jumpHeight = 0;
     this.inAir = false;
     this.curFrame = 0;
@@ -22,6 +23,8 @@ class GameView {
     this.x = 300;
     this.y = 310;
     this.speed = 12;
+    this.kill = false;
+    this.save = false;
     this.superMode = false;
     this.character = new Image();
     this.createScene();
@@ -97,7 +100,7 @@ class GameView {
       this.x -= this.speedX;
     }
     
-    if (this.right && this.level.disabled === false && (this.x < 620 || (this.level.room != 7 && this.level.room != 6))){
+    if (this.right && this.level.disabled === false && (this.x < 620 || (this.level.room != 7 && this.level.room != 6)) && (this.level.room  != 7 || this.x < (this.level.princessX - 86) || this.level.princessDisabled === true)){
       this.speedX = 15;
       this.x += this.speedX;
     }
@@ -171,6 +174,12 @@ class GameView {
         this.level.keyCount += 1;
         this.level.foundKey4 = true
       }
+
+      if (collisionName === "fireball"){
+        this.level.lives -= 1;
+        this.y = 10;
+        this.x = 20;
+      }
     }
 
     if (this.y > 500 ){
@@ -195,8 +204,23 @@ class GameView {
       this.srcY = 0;
     }
     if (this.level.disabled === true && this.level.princessDisabled === true){
-      this.srcX = (this.stillFrame) * width
-      this.srcY = 7 * height
+      this.srcX = ((this.stillFrame % 4) +  3) * width;
+      this.srcY = 5 * height
+    }
+
+    if (this.level.disabled === true && this.level.princessDisabled === true && this.kill === true && this.level.princessDead === false){
+      this.srcX = (this.stillFrame) * width;
+      this.srcY = 7 * height;
+      if (this.stillFrame === 2){
+        this.swordSwipe += 1
+      }
+      if (this.swordSwipe === 8){
+        this.level.princessDead = true;
+      }
+    }
+    else if (this.level.disabled === true && this.level.princessDisabled === true && this.save === true && this.level.princessDead === false){
+      this.srcX = (this.stillFrame) * width;
+      this.srcY = 9 * height;
     }
   }
   
@@ -244,8 +268,16 @@ class GameView {
     this.restart();
   }
 
+  if (e.key === "v" && this.level.room === 25 && e.repeat === false && this.level.reachedLevel7 === true) {
+    this.restartFinal();
+  }
+
   if (e.key === "c" && this.level.room === 0 && e.repeat === false) {
     this.start();
+  }
+
+  if (e.key === "c" && this.level.room === 7 && e.repeat === false && this.level.disabled === true && this.level.princessDisabled === true) {
+    this.kill = true;
   }
 
   if ((e.key === "p") && this.level.room === 1 && e.repeat === false) {
@@ -347,6 +379,20 @@ gameOver(){
 restart(){
   let newLevel = new Level(0, this.ctx, this.canvas);
   this.level = newLevel;
+  this.swordSwipe = 0;
+  this.kill = false;
+  this.save = false;
+  this.clear();
+  this.level.addScene();
+}
+
+restartFinal(){
+  let newLevel = new Level(7, this.ctx, this.canvas);
+  this.level = newLevel;
+  this.swordSwipe = 0;
+  this.kill = false;
+  this.save = false;
+  this.level.keyCount = 4;
   this.clear();
   this.level.addScene();
 }

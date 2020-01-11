@@ -32,6 +32,7 @@ class Level {
     this.keys = new Image();
     this.keys.src = "dist/images/KeyIcons.png";
     this.keyCount = 0;
+    this.reachedLevel7 = false;
     this.greenKnight = new Image();
     this.greenKnight.src = "dist/images/MitheralKnight.png";
     this.princess = new Image();
@@ -44,6 +45,7 @@ class Level {
     this.missile.src = "dist/images/princess.png";
     this.fired = 0;
     this.princessDisabled = false;
+    this.princessDead = false;
   }
   addScene() {
     this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
@@ -312,6 +314,7 @@ class Level {
     else if (this.room === 7){
       this.canvas.style.backgroundPositionY = "0px";
       this.canvas.style.backgroundPositionX = "0";
+      this.reachedLevel7 = true;
     }
     else if (this.room === 25){
       this.canvas.style.backgroundPositionY = "0px";
@@ -319,7 +322,10 @@ class Level {
       this.ctx.font = 'bold 20pt Calibri';
       this.ctx.fillStyle = "white"
       this.ctx.fillText("You failed to save the Princess.", 170, 100);
-      this.ctx.fillText('Press C to try again.', 220, 150);
+      this.ctx.fillText('Press C to start again.', 220, 150);
+      if (this.reachedLevel7 === true){
+      this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
+      }
     }
   }
 
@@ -347,9 +353,9 @@ class Level {
     }
   }
 
-  drawItems(currentFrame) {
+  drawItems() {
     for (let i = 0; i < this.items.length; i++) {
-      this.ctx.drawImage(this.missile, 891 , 82, 81, 82, this.items[i].x, 290, 100, 100);
+      this.ctx.drawImage(this.missile, 891 , 82, 81, 82, this.items[i].x - shift, 290, 100, 100);
     }
   }
 
@@ -599,8 +605,8 @@ class Level {
           rand = 0;
         }
         princessCol = 9
-        if (rand%2 === 0 && this.princessX < 600){
-        this.princessX += rand;
+        if (rand%2 === 0 && this.princessX < 460){
+          this.princessX += rand;
         }
         else {
           if (this.princessX > 0){
@@ -613,18 +619,29 @@ class Level {
         if (this.princessDisabled === true){
           princessCol = Math.floor((currentFrame % 10)/5);
         }
-        rand2 = Math.random()*100;
-        if ((currentFrame % 50 === 0 || rand === 0) && this.princessDisabled === false){
+        let rand2 = Math.floor(Math.random()*50);
+        if ((currentFrame % 30 === 0 || rand2 === 0) && this.princessDisabled === false){
           this.fired += 1;
           princessCol = 10
+          let facingLeft
+          if (x < this.princessX){
+            facingLeft = true;
+            shift = 55
+          } else {
+            facingLeft = false;
+            shift = 0
+          }
           this.items.push({
             name: "fireball",
-            width: 85,
-            height: 85,
-            x: this.princessX,
-            left: (x < this.princessX)
+            width: 2,
+            height: 2,
+            y: 355,
+            x: this.princessX + shift,
+            left: facingLeft,
+            shift: shift
           })
         }
+        if (this.princessDead === false){
         if (x < this.princessX){
          this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
         } else {
@@ -632,6 +649,7 @@ class Level {
           this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, -this.princessX - 85, 300, 85, 85);
           this.ctx.scale(-1, 1);
         }
+       }
         for (let i = 0; i < this.items.length; i++) {
          if (this.items[i].left === true){
            this.items[i].x -= 10;
@@ -641,8 +659,8 @@ class Level {
          }
         }
 
-        if (this.items.length > 20) {
-          this.items = this.items.slice(6, 25)
+        if (this.items.length > 40) {
+          this.items = this.items.slice(6, 41)
         }
        this.drawItems(currentFrame);
       }
@@ -652,21 +670,37 @@ class Level {
       }
     }
 
-    if (this.fired === 50){
+    if (this.fired === 10){
       this.princessDisabled = true;
       this.fired = 0;
     }
-    if (this.princessDisabled === true && Math.abs(this.princessX - x) > 40){
+    if (this.princessDisabled === true && Math.abs(this.princessX - x) > 70){
       this.drawTextBox(this.princessX + 50, 270, 180, 50, 5);
       this.ctx.font = 'bold 10pt Calibri';
       this.ctx.fillStyle = "black"
       this.ctx.fillText("Looks like I will have to do", this.princessX + 60, 290);
-      this.ctx.fillText("this the hard way", this.princessX + 60, 300);
+      this.ctx.fillText("this the hard way", this.princessX + 60, 305);
     }
 
-    if (this.princessDisabled === true && Math.abs(this.princessX - x) < 70){
+    if (this.princessDead === false && this.princessDisabled === true && Math.abs(this.princessX - x) < 70){
       this.disabled = true;
+      this.ctx.clearRect(this.princessX + 50, 270, 180,50);
+      this.drawTextBox(x - 160, 270, 180, 50, 5);
+      this.ctx.font = 'bold 10pt Calibri';
+      this.ctx.fillStyle = "black"
+      this.ctx.fillText("Looks like I will have to do", x - 150, 290);
+      this.ctx.fillText("this the easy way", x - 150, 305);
+      this.drawTextBox(x - 160, 140, 250, 50, 5);
+      this.ctx.font = 'bold 10pt Calibri';
+      this.ctx.fillStyle = "black"
+      this.ctx.fillText("Press C to kill the princess", x - 150, 160);
+      this.ctx.fillText("Press V to return the princess to Tromide", x - 150, 175);
     }
+
+   if (this.princessDead === true){
+     this.ctx.clearRect(0, 0, 700, 400);
+     this.ctx.drawImage(this.princess, 81* 8, 2 * 82, 81, 82, this.princessX, 300, 85, 85);
+   }
 
 
 }

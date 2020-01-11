@@ -47,6 +47,7 @@ class Level {
     this.fired = 0;
     this.princessDisabled = false;
     this.princessDead = false;
+    this.princessSaved = false;
   }
   addScene() {
     this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
@@ -335,14 +336,14 @@ class Level {
       } else if (this.princessSaved === true){
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "white"
-        this.ctx.fillText("You brought the princess back to Tromide. The king couldn't believe what happened.", 170, 50);
-        this.ctx.fillText("After seeing for himself that the princess was the one behind it all, he ordered ", 170, 70);
-        this.ctx.fillText("to have her locked away in the dungeon. The people of Tromide hailed you a hero. ", 170, 90);
-        this.ctx.fillText("Everywhere you went people called out your name and cheered for you.", 1700, 110);
-        this.ctx.fillText("Truthfully, you liked it better when no one knew who you were. A few weeks later", 170, 130);
-        this.ctx.fillText("you couldn't get one question out of your head. What drove the princess to do all this.", 170, 150);
-        this.ctx.fillText("You decided to go down to the dunguen to try and get some answers. When you got to the", 170, 170);
-        this.ctx.fillText("cell the door was broken open and the cell was empty...", 170, 190)
+        this.ctx.fillText("You brought the princess back to Tromide. The king couldn't believe what happened.", 120, 50);
+        this.ctx.fillText("After seeing for himself that the princess was the one behind it all, he ordered ", 120, 70);
+        this.ctx.fillText("to have her locked away in the dungeon. The people of Tromide hailed you a hero. ", 120, 90);
+        this.ctx.fillText("Everywhere you went people called out your name and cheered for you.", 120, 110);
+        this.ctx.fillText("Truthfully, you liked it better when no one knew who you were. A few weeks later", 120, 130);
+        this.ctx.fillText("you couldn't get one question out of your head. What drove the princess to do all this.", 120, 150);
+        this.ctx.fillText("You decided to go down to the dunguen to try and get some answers. When you got to the", 120, 170);
+        this.ctx.fillText("cell the door was broken open and the cell was empty...", 120, 190)
         this.ctx.fillText("THE END.", 350, 220);
         this.ctx.fillText('Press C to start again.', 320, 240);
         this.ctx.fillText('Press V to start from castle scene again.', 270, 260);
@@ -712,7 +713,7 @@ class Level {
         this.disabled = false;
       }
 
-    if (this.fired === 40){
+    if (this.fired === 30){
       this.princessDisabled = true;
       this.fired = 0;
     }
@@ -739,9 +740,27 @@ class Level {
       this.ctx.fillText("Press V to return the princess to Tromide", x - 150, 175);
     }
 
+    if (this.princessSaved === true){
+      this.stallCount += 1;
+      this.ctx.clearRect(0, 0, 700, 400);
+      this.stallCount += 1;
+      this.ctx.drawImage(this.princess, 81 * 4, 2 * 82, 81, 82, this.princessX, 300, 85, 85);
+      this.drawTextBox(this.princessX + 50, 270, 180, 50, 5);
+      this.ctx.font = 'bold 10pt Calibri';
+      this.ctx.fillStyle = "black"
+      this.ctx.fillText("Alright you win I'll go back", this.princessX + 60, 290);
+      this.ctx.fillText("with you.", this.princessX + 60, 305);
+      if (this.stallCount > 15){
+        this.drawTextBox(x - 160, 270, 180, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Good Choice.", x - 150, 290);
+      }
+    }
+
    if (this.princessDead === true){
      this.ctx.clearRect(0, 0, 700, 400);
-     this.stallCount += 1;
+     this.stallCount += 3;
      this.ctx.drawImage(this.princess, 81* 8, 2 * 82, 81, 82, this.princessX, 300, 85, 85);
    }
   }

@@ -175,7 +175,7 @@ class GameView {
         this.level.foundKey4 = true
       }
 
-      if (collisionName === "fireball"){
+      if (collisionName === "fireball" && this.level.disabled === false){
         this.level.lives -= 1;
         this.y = 10;
         this.x = 20;
@@ -189,7 +189,8 @@ class GameView {
       this.reset();
     }
 
-    if (this.level.lives === 0 || this.level.stallCount === 30){
+    if (this.level.lives === 0 || this.level.stallCount === 60){
+      this.level.disabled = false;
       this.gameOver();
     }
 
@@ -218,9 +219,9 @@ class GameView {
         this.level.princessDead = true;
       }
     }
-    else if (this.level.disabled === true && this.level.princessDisabled === true && this.save === true && this.level.princessDead === false){
-      this.srcX = (this.stillFrame) * width;
-      this.srcY = 9 * height;
+    else if (this.level.disabled === true && this.level.princessDisabled === true && this.save === true && this.level.princessDead === false && this.level.room === 7){
+      this.srcX = 2 * width;
+      this.srcY = 8 * height;
     }
   }
   
@@ -276,8 +277,13 @@ class GameView {
     this.start();
   }
 
-  if (e.key === "c" && this.level.room === 7 && e.repeat === false && this.level.disabled === true && this.level.princessDisabled === true) {
+  if (e.key === "c" && this.level.room === 7 && e.repeat === false && this.level.disabled === true && this.level.princessDisabled === true && this.save === false) {
     this.kill = true;
+  }
+
+  if (e.key === "v" && this.level.room === 7 && e.repeat === false && this.level.disabled === true && this.level.princessDisabled === true && this.kill === false) {
+    this.save = true;
+    this.level.princessSaved = true;
   }
 
   if ((e.key === "p") && this.level.room === 1 && e.repeat === false) {
@@ -391,6 +397,7 @@ restartFinal(){
   this.level = newLevel;
   this.swordSwipe = 0;
   this.kill = false;
+  this.x = 0;
   this.save = false;
   this.level.keyCount = 4;
   this.clear();

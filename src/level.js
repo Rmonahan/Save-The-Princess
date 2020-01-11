@@ -12,6 +12,7 @@ class Level {
     this.heart = new Image();
     this.heart.src = "dist/images/heart.png";
     this.lives = 3;
+    this.stallCount = 0;
     this.disabled = false;
     this.foundKey1 = false;
     this.foundKey2 = false;
@@ -317,6 +318,35 @@ class Level {
       this.reachedLevel7 = true;
     }
     else if (this.room === 25){
+      if (this.princessDead === true){
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "white"
+        this.ctx.fillText("After killing the princess who went mad you returned to Tromide.", 170, 50);
+        this.ctx.fillText("You told the story of your adventure but the king didn't buy it.", 170, 70);
+        this.ctx.fillText("He knew you made it up and were planning on killing her all along.", 170, 90);
+        this.ctx.fillText("You have been exiled to an island where you have to fend for yourself.", 170, 110);
+        this.ctx.fillText("You never expected this is what being a hero would feel like.", 170, 130);
+        this.ctx.fillText("Your whole life all you wanted was to be left alone yet now you", 170, 150);
+        this.ctx.fillText("would do anything to see another person. After spending weeks focused", 170, 170);
+        this.ctx.fillText("on survival. You see a boat approach the island...", 170, 190)
+        this.ctx.fillText("THE END.", 350, 220);
+        this.ctx.fillText('Press C to start again.', 320, 240);
+        this.ctx.fillText('Press V to start from castle scene again.', 270, 260);
+      } else if (this.princessSaved === true){
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "white"
+        this.ctx.fillText("You brought the princess back to Tromide. The king couldn't believe what happened.", 170, 50);
+        this.ctx.fillText("After seeing for himself that the princess was the one behind it all, he ordered ", 170, 70);
+        this.ctx.fillText("to have her locked away in the dungeon. The people of Tromide hailed you a hero. ", 170, 90);
+        this.ctx.fillText("Everywhere you went people called out your name and cheered for you.", 1700, 110);
+        this.ctx.fillText("Truthfully, you liked it better when no one knew who you were. A few weeks later", 170, 130);
+        this.ctx.fillText("you couldn't get one question out of your head. What drove the princess to do all this.", 170, 150);
+        this.ctx.fillText("You decided to go down to the dunguen to try and get some answers. When you got to the", 170, 170);
+        this.ctx.fillText("cell the door was broken open and the cell was empty...", 170, 190)
+        this.ctx.fillText("THE END.", 350, 220);
+        this.ctx.fillText('Press C to start again.', 320, 240);
+        this.ctx.fillText('Press V to start from castle scene again.', 270, 260);
+      } else {
       this.canvas.style.backgroundPositionY = "0px";
       this.canvas.style.backgroundPositionX = "-100px";
       this.ctx.font = 'bold 20pt Calibri';
@@ -325,6 +355,19 @@ class Level {
       this.ctx.fillText('Press C to start again.', 220, 150);
       if (this.reachedLevel7 === true){
       this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
+      }
+     }
+    }
+
+    else if (this.room === 26) {
+      this.canvas.style.backgroundPositionY = "0px";
+      this.canvas.style.backgroundPositionX = "-100px";
+      this.ctx.font = 'bold 20pt Calibri';
+      this.ctx.fillStyle = "white"
+      this.ctx.fillText("You failed to save the Princess.", 170, 100);
+      this.ctx.fillText('Press C to start again.', 220, 150);
+      if (this.reachedLevel7 === true) {
+        this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
       }
     }
   }
@@ -668,9 +711,8 @@ class Level {
       if (this.knightDead === true){
         this.disabled = false;
       }
-    }
 
-    if (this.fired === 10){
+    if (this.fired === 40){
       this.princessDisabled = true;
       this.fired = 0;
     }
@@ -699,10 +741,10 @@ class Level {
 
    if (this.princessDead === true){
      this.ctx.clearRect(0, 0, 700, 400);
+     this.stallCount += 1;
      this.ctx.drawImage(this.princess, 81* 8, 2 * 82, 81, 82, this.princessX, 300, 85, 85);
    }
-
-
+  }
 }
 }
 

@@ -189,7 +189,7 @@ class GameView {
       this.reset();
     }
 
-    if (this.level.lives === 0){
+    if (this.level.lives === 0 || this.level.stallCount === 30){
       this.gameOver();
     }
 

@@ -19,6 +19,8 @@ class Level {
     this.foundKey4 = false;
     this.firstScene = true;
     this.secondScene = true;
+    this.princessSwordCount = 0;
+    this.knightDead === false;
     this.key1 = new Image();
     this.key1.src = "dist/images/KeyIcons.png";
     this.key2 = new Image();
@@ -517,6 +519,18 @@ class Level {
         }
         this.disabled = true;
         this.ctx.scale(-1, 1);
+        if (this.princessSwordCount > 1) {
+          knightRow = 4;
+        }
+
+        if (knightRow === 4 && knightCol === 9){
+          this.knightDead = true;
+        }
+
+        if (this.knightDead === true){
+          knightCol = 9;
+        }
+
         this.ctx.drawImage(this.goldKnight, 32 * knightCol, knightRow * 32, 32, 32, -this.goldKnightX - 85, 300, 85, 85);
         this.ctx.scale(-1, 1);
       }
@@ -547,19 +561,26 @@ class Level {
 
       if (this.princessX === 390){
         this.ctx.clearRect(210, 230, 170, 80);
-        this.drawTextBox(460, 270, 180, 50, 5);
         if (this.secondScene === true){
-          princessCol = Math.floor((currentFrame % 17) / 4);
+          princessCol = Math.floor((currentFrame % 13) / 3);
         } else {
           princessCol = Math.floor((currentFrame % 20) / 10);
         }
         if (princessCol === 4){
+          princessCol = 0;
+          this.princessSwordCount += 1;
+        }
+
+        if (this.princessSwordCount === 2){
           this.secondScene = false;
         }
+        if (this.princessSwordCount > 1){
+        this.drawTextBox(460, 270, 180, 50, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
         this.ctx.fillText("How cute. You thought I was", 470, 290);
         this.ctx.fillText("the one that needed saving.", 470, 305);
+        }
         this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
       }
 

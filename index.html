@@ -20,6 +20,18 @@
       left: 0;  */
     }
 
+    body {
+      /* background: skyblue; */
+    }
+
+    #title {
+      display: block;
+      text-align: center;
+      font-family:fantasy;
+      margin-top: 20px;
+      font-size: 60px;
+    }
+
     #myCanvas {
       background-image: url("dist/images/level1.png");
       background-repeat: no-repeat;
@@ -27,15 +39,44 @@
       background-position-y: -50px;
     }
 
+    .controls {
+      margin-top: 15px;
+      font-family:fantasy;
+      /* border: 1px solid black; */
+      text-align: center;
+      display: block;
+      padding: 20px;
+    }
+
+    .links {
+      font-family: fantasy;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .note {
+      font-weight: bold;
+    }
   </style>
 </head>
 
 <body>
-  <!-- <div id="screens"> -->
+  <div class="mainDiv">
+  <h1 id="title"> Save The Princess!</h1>
   <canvas id="myCanvas" width="700" height="400"></canvas>
-  <!-- <canvas id="myCanvas2" width="700" height="400"></canvas> -->
+  <div class="links">
+    <a href="https://github.com/Rmonahan/Save-The-Princess">Github |</a>
+    <a href="https://www.linkedin.com/in/ryan-monahan-99323b184/">LinkedIn |</a>
+    <a href="">Portfolio</a>
+  </div>
+  <div class="controls">
+    <h1>Controls</h1>
+    <p> A - Left <br> W - Jump <br> D - Right <br>
+       <span class="note"> Note: There is no double jump</span></p>
+  </div>
   <script type="application/javascript" src="dist/main.js"></script>
-  <!-- </div> -->
+</div>
 </body>
 
 </html>

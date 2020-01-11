@@ -97,7 +97,7 @@ class GameView {
       this.x -= this.speedX;
     }
     
-    if (this.right && this.level.disabled === false){
+    if (this.right && this.level.disabled === false && (this.x < 620 || (this.level.room != 7 && this.level.room != 6))){
       this.speedX = 15;
       this.x += this.speedX;
     }
@@ -121,7 +121,7 @@ class GameView {
       }
     }
     
-    if (this.x > 670){ 
+    if (this.x > 670 && this.level.room != 7 && this.level.room != 6){ 
       this.scrollRight();
       this.x = -20;
     }
@@ -193,6 +193,10 @@ class GameView {
     else {
       this.srcX = (this.stillFrame) * width; 
       this.srcY = 0;
+    }
+    if (this.level.disabled === true && this.level.princessDisabled === true){
+      this.srcX = (this.stillFrame) * width
+      this.srcY = 7 * height
     }
   }
   

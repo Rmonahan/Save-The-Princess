@@ -20,7 +20,7 @@ class Level {
     this.firstScene = true;
     this.secondScene = true;
     this.princessSwordCount = 0;
-    this.knightDead === false;
+    this.knightDead = false;
     this.key1 = new Image();
     this.key1.src = "dist/images/KeyIcons.png";
     this.key2 = new Image();
@@ -40,6 +40,10 @@ class Level {
     this.goldKnight = new Image();
     this.goldKnight.src = "dist/images/GoldKnight.png"
     this.goldKnightX = 700;
+    this.missile = new Image();
+    this.missile.src = "dist/images/princess.png";
+    this.fired = 0;
+    this.princessDisabled = false;
   }
   addScene() {
     this.canvas.style.backgroundImage = `url("dist/images/level${this.room}.png"`
@@ -336,11 +340,16 @@ class Level {
     ctx.fill();
   }
 
-  draw_platforms() {
+  drawPlatforms() {
     this.ctx.fillStyle = "black";
-    for (let i = 0; i < platforms.length; i++) {
-      // this.ctx.fillRect(platforms[i].x, platforms[i].y, platforms[i].width, platforms[i].height);
-      this.ctx.drawImage(this.platformPic, 0, 0, 96, 96, platforms[i].x, platforms[i].y, platforms[i].width, platforms[i].height);
+    for (let i = 0; i < this.platforms.length; i++) {
+      this.ctx.drawImage(this.platformPic, 0, 0, 96, 96, this.platforms[i].x, this.platforms[i].y, this.platforms[i].width, this.platforms[i].height);
+    }
+  }
+
+  drawItems(currentFrame) {
+    for (let i = 0; i < this.items.length; i++) {
+      this.ctx.drawImage(this.missile, 891 , 82, 81, 82, this.items[i].x, 290, 100, 100);
     }
   }
 
@@ -411,14 +420,14 @@ class Level {
     }
 
     else if (this.room === 2){
-        this.draw_platforms();
+        this.drawPlatforms();
         if (this.foundKey1 === false){
           this.draw_key1();
         }
     }
 
     else if (this.room === 3) {
-      this.draw_platforms();
+      this.drawPlatforms();
       if (this.foundKey2 === false) {
         this.draw_key2();
       }
@@ -434,7 +443,7 @@ class Level {
     }
 
     else if (this.room === 4) {
-      this.draw_platforms();
+      this.drawPlatforms();
       if (this.foundKey3 === false) {
         this.draw_key3();
       } else {
@@ -457,14 +466,14 @@ class Level {
     }
 
     else if (this.room === 5){
-      this.draw_platforms();
+      this.drawPlatforms();
       if (this.foundKey4 === false){
         this.draw_key4();
       }  
     }
 
     else if (this.room === 6){
-      this.draw_platforms();
+      this.drawPlatforms();
 
       if (this.foundKey1 === false || this.foundKey2 === false || this.foundKey3 === false || this.foundKey4 === false){
         col = currentFrame % 10
@@ -491,7 +500,7 @@ class Level {
     }
 
     else if (this.room === 7){
-      this.ctx.clearRect(this.princessX, 300, 85, 85);
+      this.ctx.clearRect(0, 300, 1000, 100);
       this.ctx.clearRect(this.goldKnightX, 300, 85, 85)
       if (this.firstScene === true){
        princessCol = 7;
@@ -501,7 +510,7 @@ class Level {
         this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
       }
       
-      if (x < 250){
+      if (x < 250 && this.firstScene === true){
         this.drawTextBox(390, 290, 150, 40, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
@@ -511,7 +520,7 @@ class Level {
         this.ctx.clearRect(390, 290, 150, 40);
       }
       knightRow = 1;
-      if (x > 260){
+      if (x > 260 || this.knightDead === true){
         knightCol = (currentFrame) % 10;
         if (this.goldKnightX > 350) {
           this.goldKnightX -= 5;
@@ -544,10 +553,10 @@ class Level {
         this.ctx.fillText("better let the princess go!", 140, 285);
       }
 
-      if (this.goldKnightX === 350 && this.princessX != 390){
+      if (this.goldKnightX === 350 && this.princessX != 390 && this.knightDead === false){
         this.firstScene = false;
         princessCol = currentFrame % 2;
-        if (this.princessX > 390){
+        if (this.princessX > 390 && this.knightDead === false){
         this.princessX -= 5;
         }
         this.ctx.clearRect(130, 250, 180, 55);
@@ -555,14 +564,14 @@ class Level {
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
         this.ctx.fillText("Thank god you are here.", 220, 250);
-        this.ctx.fillText("Everyone has it all wrong", 220, 265);
+        this.ctx.fillText("Everyone has it all wrong...", 220, 265);
         this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
       }
 
       if (this.princessX === 390){
         this.ctx.clearRect(210, 230, 170, 80);
         if (this.secondScene === true){
-          princessCol = Math.floor((currentFrame % 13) / 3);
+          princessCol = Math.floor((currentFrame % 17) / 4);
         } else {
           princessCol = Math.floor((currentFrame % 20) / 10);
         }
@@ -574,27 +583,92 @@ class Level {
         if (this.princessSwordCount === 2){
           this.secondScene = false;
         }
-        if (this.princessSwordCount > 1){
         this.drawTextBox(460, 270, 180, 50, 5);
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "black"
         this.ctx.fillText("How cute. You thought I was", 470, 290);
         this.ctx.fillText("the one that needed saving.", 470, 305);
-        }
+        
         this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
       }
 
+      if (this.knightDead === true && this.princessX < 650){
+        this.ctx.clearRect(460, 270, 180, 60)
+        rand = Math.floor(Math.random()*15)
+        if (this.princessDisabled === true){
+          rand = 0;
+        }
+        princessCol = 9
+        if (rand%2 === 0 && this.princessX < 600){
+        this.princessX += rand;
+        }
+        else {
+          if (this.princessX > 0){
+             this.princessX -= rand;
+          }
+          else {
+            this.princessX += rand;
+          }
+        }
+        if (this.princessDisabled === true){
+          princessCol = Math.floor((currentFrame % 10)/5);
+        }
+        rand2 = Math.random()*100;
+        if ((currentFrame % 50 === 0 || rand === 0) && this.princessDisabled === false){
+          this.fired += 1;
+          princessCol = 10
+          this.items.push({
+            name: "fireball",
+            width: 85,
+            height: 85,
+            x: this.princessX,
+            left: (x < this.princessX)
+          })
+        }
+        if (x < this.princessX){
+         this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
+        } else {
+          this.ctx.scale(-1, 1);
+          this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, -this.princessX - 85, 300, 85, 85);
+          this.ctx.scale(-1, 1);
+        }
+        for (let i = 0; i < this.items.length; i++) {
+         if (this.items[i].left === true){
+           this.items[i].x -= 10;
+         }
+         else {
+           this.items[i].x += 10;
+         }
+        }
 
+        if (this.items.length > 20) {
+          this.items = this.items.slice(6, 25)
+        }
+       this.drawItems(currentFrame);
+      }
+
+      if (this.knightDead === true){
+        this.disabled = false;
+      }
+    }
+
+    if (this.fired === 50){
+      this.princessDisabled = true;
+      this.fired = 0;
+    }
+    if (this.princessDisabled === true && Math.abs(this.princessX - x) > 40){
+      this.drawTextBox(this.princessX + 50, 270, 180, 50, 5);
+      this.ctx.font = 'bold 10pt Calibri';
+      this.ctx.fillStyle = "black"
+      this.ctx.fillText("Looks like I will have to do", this.princessX + 60, 290);
+      this.ctx.fillText("this the hard way", this.princessX + 60, 300);
+    }
+
+    if (this.princessDisabled === true && Math.abs(this.princessX - x) < 70){
+      this.disabled = true;
     }
 
 
-    // else if (this.room === 25){
-    //   this.drawTextBox(400, 260, 100, 50, 5)
-    //   this.ctx.font = 'bold 20pt Calibri';
-    //   this.ctx.fillStyle = "white"
-    //   this.ctx.fillText("Game Over", 410, 280);
-    //   this.ctx.fillText('Press C to try again.', 410, 290);
-    // }
 }
 }
 

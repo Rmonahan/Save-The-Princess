@@ -322,10 +322,10 @@ class Level {
       if (this.princessDead === true){
         this.ctx.font = 'bold 10pt Calibri';
         this.ctx.fillStyle = "white"
-        this.ctx.fillText("After killing the princess who went mad you returned to Tromide.", 170, 50);
-        this.ctx.fillText("You told the story of your adventure but the king didn't buy it.", 170, 70);
-        this.ctx.fillText("He knew you made it up and were planning on killing her all along.", 170, 90);
-        this.ctx.fillText("You have been exiled to an island where you have to fend for yourself.", 170, 110);
+        this.ctx.fillText("After killing the princess you returned to Tromide. You told the", 170, 50);
+        this.ctx.fillText("story of your adventure but the king didn't buy it. He thought", 170, 70);
+        this.ctx.fillText("you made it up and were planning on killing her all along. You", 170, 90);
+        this.ctx.fillText("have been exiled to an island where you have to fend for yourself.", 170, 110);
         this.ctx.fillText("You never expected this is what being a hero would feel like.", 170, 130);
         this.ctx.fillText("Your whole life all you wanted was to be left alone yet now you", 170, 150);
         this.ctx.fillText("would do anything to see another person. After spending weeks focused", 170, 170);

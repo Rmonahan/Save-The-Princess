@@ -67,7 +67,7 @@ class Level {
       this.ctx.fillText("He needs to find the 4 keys to get into the enemy castle and save the princess. This is where his story begins. ", 30, 170);
       this.ctx.fillText("Use the left, right, up arrow keys or A and D to move left/right and W to jump. Note: There is no double jump.", 30, 190 )
       this.ctx.font = '16pt Calibri';
-      this.ctx.fillText('Press C to start.', 260, 215);
+      this.ctx.fillText('Press C to start.', 260, 220);
     }
     if (this.room === 1) {
       this.canvas.style.backgroundPositionY = "-20px";
@@ -496,20 +496,19 @@ class Level {
       this.drawPlatforms();
       if (this.foundKey3 === false) {
         this.draw_key3();
-      } else {
-        platforms.push({
-          x: canvas.width - 500,
-          y: this.canvas.height - 200,
-          width: platformWidth,
-          height: platformHeight,
-        });
       }
-
+      
       if (this.foundKey4 === true){
         platforms.push({
           x: canvas.width - 300,
           y: canvas.height - 30,
           width: platformWidth + 300,
+          height: platformHeight,
+        });
+        platforms.push({
+          x: canvas.width - 500,
+          y: this.canvas.height - 200,
+          width: platformWidth,
           height: platformHeight,
         });
       }

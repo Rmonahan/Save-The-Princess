@@ -662,9 +662,7 @@ class Level {
         if (this.princessDisabled === true){
           princessCol = Math.floor((currentFrame % 10)/5);
         }
-        let rand2 = Math.floor(Math.random()*50);
-        if ((currentFrame % 30 === 0 || rand2 === 0) && this.princessDisabled === false){
-          this.fired += 1;
+        if ((currentFrame % 30 === 0) && this.princessDisabled === false){
           princessCol = 10
           let facingLeft
           if (x < this.princessX){
@@ -683,6 +681,7 @@ class Level {
             left: facingLeft,
             shift: shift
           })
+          this.fired += 1;
         }
         if (this.princessDead === false){
         if (x < this.princessX){
@@ -702,9 +701,9 @@ class Level {
          }
         }
 
-        if (this.items.length > 40) {
-          this.items = this.items.slice(6, 41)
-        }
+        // if (this.items.length > 40) {
+        //   this.items = this.items.slice(6, 41)
+        // }
        this.drawItems(currentFrame);
       }
 
@@ -712,10 +711,10 @@ class Level {
         this.disabled = false;
       }
 
-    if (this.fired === 30){
-      this.princessDisabled = true;
-      this.fired = 0;
-    }
+      if (this.fired === 20){
+        this.princessDisabled = true;
+        this.fired = 0;
+      }
     if (this.princessDisabled === true && Math.abs(this.princessX - x) > 70){
       this.drawTextBox(this.princessX + 50, 270, 180, 50, 5);
       this.ctx.font = 'bold 10pt Calibri';

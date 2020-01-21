@@ -1,6 +1,6 @@
 # Save The Princess
 
-<img src="https://github.com/Rmonahan/Save-The-Princess/blob/master/dist/images/logo.png" width="200" height="200"> <h1><a href="https://rmonahan.github.io/Save-The-Princess/">   Play here! </a></h1>
+<a href="https://rmonahan.github.io/Save-The-Princess/"><img src="https://github.com/Rmonahan/Save-The-Princess/blob/master/dist/images/logo.png" width="200" height="200"> </a><h1><a href="https://rmonahan.github.io/Save-The-Princess/">   Play here! </a></h1>
 
 Background 
 

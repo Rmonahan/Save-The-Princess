@@ -194,7 +194,9 @@ class GameView {
       this.gameOver();
     }
 
-
+    if (this.level.room === 0){
+      this.intro();
+    }
 
     if (this.y === 310) this.inAir = false;
     if (this.inAir === true) this.srcY = height * 2;
@@ -379,6 +381,12 @@ reset(){
 gameOver(){
   this.clear();
   this.level.room = 25
+  this.level.addScene();
+}
+
+intro() {
+  this.clear();
+  this.level.room = 0
   this.level.addScene();
 }
 

@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
  
-  let level = new Level(0, ctx, canvas);
+  let level = new Level(7, ctx, canvas);
   new GameView(level, ctx, canvas);
 });

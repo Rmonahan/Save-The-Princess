@@ -27,3 +27,87 @@ This project was implemented with the following technologies:
   1. Javascript for game logic
   2. Canvas for game animation and effect rendering
   3. Webpack & Babel to bundle js files
+  
+  
+<h2> Code Snippets </h2>
+
+Add fireballs into the scene: 
+
+```Javascript
+let rand2 = Math.floor(Math.floor(Math.random() * 50));
+        if ((currentFrame % 30 === 0 || rand2 === 14) && this.princessDisabled === false){
+          princessCol = 10
+          let facingLeft
+          if (x < this.princessX){
+            facingLeft = true;
+            shift = 45
+          } else {
+            facingLeft = false;
+            shift = 0
+          }
+          this.items.push({
+            name: "fireball",
+            width: 10,
+            height: 2,
+            y: 355,
+            x: this.princessX + shift,
+            left: facingLeft,
+            shift: shift
+          })
+          this.fired += 1;
+          this.remainingFired -= 1;
+        }
+  ```
+Cutscene animations: 
+
+```Javascript
+
+if (this.goldKnightX > 360 && this.goldKnightX < 600)
+      {
+        this.drawTextBox(130, 250, 180, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Hey you big dummy. You", 140, 272);
+        this.ctx.fillText("better let the princess go!", 140, 285);
+      }
+
+      if (this.goldKnightX === 350 && this.princessX != 390 && this.knightDead === false){
+        this.firstScene = false;
+        princessCol = currentFrame % 2;
+        if (this.princessX > 390 && this.knightDead === false){
+        this.princessX -= 5;
+        }
+        this.ctx.clearRect(130, 250, 180, 55);
+        this.drawTextBox(210, 230, 170, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("Thank god you are here.", 220, 250);
+        this.ctx.fillText("Everyone has it all wrong...", 220, 265);
+        this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
+      }
+
+      if (this.princessX === 390){
+        this.ctx.clearRect(210, 230, 170, 80);
+        if (this.secondScene === true){
+          princessCol = Math.floor((currentFrame % 17) / 4);
+        } else {
+          princessCol = Math.floor((currentFrame % 20) / 10);
+        }
+        if (princessCol === 4){
+          princessCol = 0;
+          this.princessSwordCount += 1;
+        }
+
+        if (this.princessSwordCount === 2){
+          this.secondScene = false;
+        }
+        this.drawTextBox(460, 270, 180, 50, 5);
+        this.ctx.font = 'bold 10pt Calibri';
+        this.ctx.fillStyle = "black"
+        this.ctx.fillText("How cute. You thought I was", 470, 290);
+        this.ctx.fillText("the one that needed saving.", 470, 305);
+        
+        this.ctx.drawImage(this.princess, 81 * princessCol, princessRow * 82, 81, 82, this.princessX, 300, 85, 85);
+      }
+      
+```

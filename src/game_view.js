@@ -124,12 +124,12 @@ class GameView {
       }
     }
     
-    if (this.x > 670 && this.level.room != 7 && this.level.room != 6){ 
+    if (this.x > 670 && this.y < 320 && this.level.room != 7 && this.level.room != 6){ 
       this.scrollRight();
       this.x = -20;
     }
     
-    if (this.x < -20 && this.level.room != 1 && this.level.room != 7) {
+    if (this.x < -20 && this.y < 320 && this.level.room != 1 && this.level.room != 7) {
       this.scrollLeft();
       this.x = 640;
     }

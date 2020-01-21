@@ -477,7 +477,6 @@ class Level {
     }
 
     else if (this.room === 3) {
-      this.drawPlatforms();
       if (this.foundKey2 === false) {
         this.draw_key2();
       }
@@ -490,10 +489,10 @@ class Level {
           height: platformHeight,
         });
       }
+      this.drawPlatforms();
     }
 
     else if (this.room === 4) {
-      this.drawPlatforms();
       if (this.foundKey3 === false) {
         this.draw_key3();
       }
@@ -512,6 +511,7 @@ class Level {
           height: platformHeight,
         });
       }
+      this.drawPlatforms();
     }
 
     else if (this.room === 5){

@@ -13,6 +13,8 @@ class Level {
     this.heart.src = "dist/images/heart.png";
     this.lives = 3;
     this.stallCount = 0;
+    this.introTyped = false;
+    this.overTyped = false;
     this.disabled = false;
     this.foundKey1 = false;
     this.foundKey2 = false;
@@ -59,19 +61,8 @@ class Level {
     platformWidth = this.platformWidth;
     platformHeight = this.platformHeight
     if (this.room === 0) {
-      this.ctx.font = 'bold 12pt Arial';
-      this.ctx.fillStyle = "white"
-      this.ctx.fillText("You control Henry who is a coal miner from the kingdom of Tromide. He has always", 20, 50);
-      this.ctx.fillText("kept a low profile, determined to do his job and then enjoy the peace and quiet of his", 20, 70);
-      this.ctx.fillText("home. No one knows him personally and he likes it that way. The princess of Tromide", 20, 90);
-      this.ctx.fillText("has been kidnapped and all efforts to save her have failed. Although Henry heard of the", 20, 110);
-      this.ctx.fillText("situation, it wasn't something he was interested in getting involved in. On his way to", 20, 130);
-      this.ctx.fillText("work he saw a poster offering a major reward to anyone that can help save the princess.", 20, 150);
-      this.ctx.fillText("The one thing Henry does care for is money. He needs to find the 4 keys to get into the ", 20, 170);
-      this.ctx.fillText("enemy castle and save the princess. This is where his story begins...", 20, 190 )
-      this.ctx.fillText("Use the arrow keys or A,D,W to go left, right and jump. Note: There is no double jump.",  20, 220);
-      this.ctx.font = '16pt Arial';
-      this.ctx.fillText('Press C to start.', 260, 250);
+      let str = "You control Henry who is a coal miner from the kingdom of Tromide. He has always kept a low profile, determined to do his job and then enjoy the peace and quiet of his home. No one knows him personally and he likes it that way. The princess of Tromide has been kidnapped and all efforts to save her have failed. On his way to work he saw a poster offering a major reward to anyone that can help save the princess. The one thing Henry does care for is money. He needs to find the 4 keys to get into the enemy castle and save the princess. This is where his story begins... stringBreak Use the arrow keys or A, D, W to go left, right and jump. Note: There is no double jump."
+      this.typeWrite(str, 20, 30, 25, 50)
     }
     if (this.room === 1) {
       this.canvas.style.backgroundPositionY = "-20px";
@@ -324,41 +315,21 @@ class Level {
     }
     else if (this.room === 25){
       if (this.princessDead === true){
-        this.ctx.font = 'bold 12pt Arial';
-        this.ctx.fillStyle = "white"
-        this.ctx.fillText("After killing the princess you returned to Tromide. You told the story of your adventure", 20, 50);
-        this.ctx.fillText("but the king didn't buy it. He thought you made it up and were planning on killing her", 20, 70);
-        this.ctx.fillText("all along. You have been exiled to an island where you have to fend for yourself. You", 20, 90);
-        this.ctx.fillText("never expected this is what being a hero would feel like. Your whole life all you wanted", 20, 110);
-        this.ctx.fillText("was to be left alone yet now you would do anything to see another person. After", 20, 130);
-        this.ctx.fillText("spending weeks focused on surival, you see see a boat approach the island...", 20, 150);
-        this.ctx.fillText("THE END.", 300, 200);
-        this.ctx.fillText('Press C to start again.', 250, 240);
-        this.ctx.fillText('Press V to start from castle scene again.', 200, 260);
+        let str = "After killing the princess you returned to Tromide. You told the story of your adventure but the king didn't buy it. He thought you made it up and were planning on killing her all along. You have been exiled to an island where you have to fend for yourself. You never expected this is what being a hero would feel like. Your whole life all you wanted was to be left alone yet now you would do anything to see another person. After spending weeks focused on surival, you see a boat approach the island... THE END."
+        this.typeWrite(str, 20, 30, 25, 50)
       } else if (this.princessSaved === true){
-        this.ctx.font = 'bold 12pt Arial';
-        this.ctx.fillStyle = "white"
-        this.ctx.fillText("You brought the princess back to Tromide. The king couldn't believe what happened.", 20, 50);
-        this.ctx.fillText("After seeing for himself that the princess was the one behind it all, he ordered", 20, 70);
-        this.ctx.fillText("to have her locked away in the dungeon. The people of Tromide hailed you a hero.", 20, 90);
-        this.ctx.fillText("Everywhere you went people called out your name. Truthfully, you liked it better", 20, 110);
-        this.ctx.fillText("when no one knew who you were. A few weeks later you couldn't get one question out", 20, 130);
-        this.ctx.fillText("of your head. What drove the princess to do all this. You decided to go down to", 20, 150);
-        this.ctx.fillText("the dunguen to try and get some answers. When you got to the cell the door was", 20, 170);
-        this.ctx.fillText("broken open and the cell was empty...", 20, 190);
-        this.ctx.fillText("THE END.", 300, 220);
-        this.ctx.fillText('Press C to start again.', 260, 250);
-        this.ctx.fillText('Press V to start from castle scene again.', 200, 270);
+        let str = "You brought the princess back to Tromide. The king couldn't believe what happened. After seeing for himself that the princess was the one behind it all, he ordered to have her locked away in the dungeon. The people of Tromide hailed you a hero. Everywhere you went people called out your name. Truthfully, you liked it better when no one knew who you were. A few weeks later you couldn't get one question out of your head. What drove the princess to do all this. You decided to go down to the dunguen to try and get some answers. When you got to the cell the door was broken open and the cell was empty... THE END."
+        this.typeWrite(str, 20, 30, 25, 50)
       } else {
-      this.canvas.style.backgroundPositionY = "0px";
-      this.canvas.style.backgroundPositionX = "-100px";
-      this.ctx.font = 'bold 20pt Calibri';
-      this.ctx.fillStyle = "white"
-      this.ctx.fillText("You failed to save the Princess.", 170, 100);
-      this.ctx.fillText('Press C to start again.', 220, 150);
-      if (this.reachedLevel7 === true){
-      this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
-      }
+        this.canvas.style.backgroundPositionY = "0px";
+        this.canvas.style.backgroundPositionX = "-100px";
+        this.ctx.font = 'bold 20pt Calibri';
+        this.ctx.fillStyle = "white"
+        this.ctx.fillText("You failed to save the Princess.", 170, 100);
+        this.ctx.fillText('Press C to start again.', 220, 150);
+        if (this.reachedLevel7 === true){
+        this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
+        }
      }
     }
 
@@ -374,6 +345,41 @@ class Level {
         this.ctx.fillText('Press V to start from castle scene again.', 140, 180);
       }
     }
+  }
+
+  typeWrite(str, startX, startY, lineHeight, padding){
+    let i = 0;
+    let cursorX = startX;
+    let cursorY = startY;
+    let words = str.split(" ");
+    let sentence = "";
+    let self = this;
+    let typing = setInterval(function () {
+      let width = self.ctx.measureText(sentence).width;
+      sentence += words[i] + " ";
+      if (startX + width >= self.canvas.width - padding) {
+        cursorX = startX;
+        cursorY += lineHeight;
+        sentence = words[i] + " ";
+      } else if (words[i] === "stringBreak"){
+        cursorX = startX;
+        cursorY += lineHeight + 10;
+        i++;
+        sentence = words[i] + " ";
+      }
+      else {
+        cursorX = startX + width
+      }
+      self.ctx.font = '12pt Arial';
+      self.ctx.fillStyle = "white";
+      self.ctx.fillText(words[i], cursorX, cursorY);
+      i++;
+      if (i === words.length) {
+        if (self.room === 0) self.introTyped = true;
+        if (self.room === 25) self.overTyped = true;
+        clearInterval(typing);
+      }
+    }, 200);
   }
 
   drawTextBox(x, y, width, height, radius){
@@ -437,6 +443,18 @@ class Level {
     this.ctx.drawImage(this.key4, 96, 0, 32, 32, 225, 340, 30, 30);
   }
 
+  drawCommand(){
+    if (this.room === 0){
+      this.ctx.clearRect(250, 230, 200, 50)
+      this.ctx.font = '16pt Arial Bold';
+      this.ctx.fillText('Press C to start.', 270, 250);
+    } else {
+      this.ctx.clearRect(190, 230, 400, 100)
+      this.ctx.fillText('Press C to start again.', 250, 240);
+      this.ctx.fillText('Press V to start from castle scene again.', 190, 260);
+    }
+  }
+
   updateScene(x, y, currentFrame){
     let princessCol;
     let princessRow = 2;
@@ -456,9 +474,9 @@ class Level {
         this.ctx.fillText('Good luck Henry,', 95, 300);
         this.ctx.fillText('I know you can', 95, 310);
         this.ctx.fillText('do it!', 95, 320);
-    } else {
+      } else {
          this.ctx.clearRect(90, 280, 100, 50);
-    }
+      }
 
       if (x < 800 && x > 500){
         this.drawTextBox(400, 260, 100, 50, 5)

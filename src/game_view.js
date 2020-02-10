@@ -95,6 +95,10 @@ class GameView {
     this.level.updateScene(this.x, this.y, this.oldFrame);
     this.inAir = true;
 
+    if ((this.level.room === 0 && this.level.introTyped === true) || (this.level.room === 25 && this.level.overTyped === true)) {
+      this.level.drawCommand();
+    }
+
     if (this.left && this.level.disabled === false && (this.x > -20 || (this.level.room !=1 && this.level.room != 7))){
       this.speedX = 15;
       this.x -= this.speedX;
@@ -125,12 +129,16 @@ class GameView {
     }
     
     if (this.x > 670 && this.y < 320 && this.level.room != 7 && this.level.room != 6){ 
+      if (this.level.room != 0 && this.level.room != 25){
       this.scrollRight();
+      }
       this.x = -20;
     }
     
     if (this.x < -20 && this.y < 320 && this.level.room != 1 && this.level.room != 7) {
+      if (this.level.room != 0 && this.level.room != 25) {
       this.scrollLeft();
+      }
       this.x = 640;
     }
     for (let i = 0; i < this.level.platforms.length; i++) {
@@ -189,13 +197,9 @@ class GameView {
       this.reset();
     }
 
-    if (this.level.lives === 0 || this.level.stallCount === 60){
+    if ((this.level.lives === 0 || this.level.stallCount === 60) && (this.level.room != 25 || this.level.lives === 0)){
       this.level.disabled = false;
       this.gameOver();
-    }
-
-    if (this.level.room === 0){
-      this.intro();
     }
 
     if (this.y === 310) this.inAir = false;
@@ -256,10 +260,10 @@ class GameView {
   if (e.key === "d" || e.keyCode === 39) {
     this.moveRight();
   }
-  else if (e.key === "a" || e.keyCode === 37) {
+  else if ((e.key === "a" || e.keyCode === 37) && this.level.disabled === false) {
     this.moveLeft();
   }
-  if ((e.key === "w" || e.keyCode === 38) && e.repeat === false && (this.y === 310 || this.speedY === 0) && this.y <= 310) {
+  if ((e.key === "w" || e.keyCode === 38) && e.repeat === false && this.level.disabled === false && (this.y === 310 || this.speedY === 0) && this.y <= 310) {
     this.jump();
   }
 
@@ -267,15 +271,15 @@ class GameView {
     this.enter();
   }
 
-  if (e.key === "c" && this.level.room === 25 && e.repeat === false){
+    if (e.key === "c" && this.level.room === 25 && e.repeat === false && (this.level.overTyped === true || this.level.lives === 0)){
     this.restart();
   }
 
-  if (e.key === "v" && this.level.room === 25 && e.repeat === false && this.level.reachedLevel7 === true) {
+    if (e.key === "v" && this.level.room === 25 && e.repeat === false && this.level.reachedLevel7 === true && (this.level.overTyped === true || this.level.lives === 0)) {
     this.restartFinal();
   }
 
-  if (e.key === "c" && this.level.room === 0 && e.repeat === false) {
+  if (e.key === "c" && this.level.room === 0 && e.repeat === false && this.level.introTyped === true) {
     this.start();
   }
 
@@ -354,7 +358,7 @@ scrollRight(){
 }
 
 scrollLeft(){
-  if (this.level.room !== 25 && (this.level.room !== 0 && this.level.room !== 7)) this.level.room -= 1
+  if (this.level.room !== 25) this.level.room -= 1
   this.clear();
   this.level.addScene();
 }
@@ -391,7 +395,7 @@ intro() {
 }
 
 restart(){
-  let newLevel = new Level(0, this.ctx, this.canvas);
+  let newLevel = new Level(1, this.ctx, this.canvas);
   this.level = newLevel;
   this.swordSwipe = 0;
   this.kill = false;

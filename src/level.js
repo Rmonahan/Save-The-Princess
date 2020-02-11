@@ -315,10 +315,10 @@ class Level {
     }
     else if (this.room === 25){
       if (this.princessDead === true){
-        let str = "After killing the princess you returned to Tromide. You told the story of your adventure but the king didn't buy it. He thought you made it up and were planning on killing her all along. You have been exiled to an island where you have to fend for yourself. You never expected this is what being a hero would feel like. Your whole life all you wanted was to be left alone yet now you would do anything to see another person. After spending weeks focused on surival, you see a boat approach the island... THE END."
+        let str = "After killing the princess you returned to Tromide. You told the story of your adventure but the king didn't buy it. He thought you made it up and were planning on killing her all along. You have been exiled to an island where you have to fend for yourself. You never expected this is what being a hero would feel like. Your whole life all you wanted was to be left alone yet now you would do anything to see another person. After spending weeks focused on survival, you see a boat approach the island... THE END."
         this.typeWrite(str, 20, 30, 25, 50)
       } else if (this.princessSaved === true){
-        let str = "You brought the princess back to Tromide. The king couldn't believe what happened. After seeing for himself that the princess was the one behind it all, he ordered to have her locked away in the dungeon. The people of Tromide hailed you a hero. Everywhere you went people called out your name. Truthfully, you liked it better when no one knew who you were. A few weeks later you couldn't get one question out of your head. What drove the princess to do all this. You decided to go down to the dunguen to try and get some answers. When you got to the cell the door was broken open and the cell was empty... THE END."
+        let str = "You brought the princess back to Tromide. The king couldn't believe what happened. After seeing for himself that the princess was the one behind it all, he ordered to have her locked away in the dungeon. The people of Tromide hailed you a hero. Everywhere you went people called out your name. Truthfully, you liked it better when no one knew who you were. A few weeks later you couldn't get one question out of your head. What drove the princess to do all this. You decided to go down to the dungeon to try and get some answers. When you got to the cell the door was busted open and the cell was empty... THE END."
         this.typeWrite(str, 20, 30, 25, 50)
       } else {
         this.canvas.style.backgroundPositionY = "0px";
@@ -428,7 +428,7 @@ class Level {
   }
 
   draw_key1(){
-    this.ctx.drawImage(this.key1, 0, 0, 32, 32, 600, 240, 30, 30);
+    this.ctx.drawImage(this.key1, 32, 0, 32, 32, 600, 240, 30, 30);
   }
 
   draw_key2(){
@@ -452,7 +452,7 @@ class Level {
       this.ctx.clearRect(190, 230, 400, 100)
       this.ctx.fillText('Press C to start again.', 250, 240);
       this.ctx.fillText('Press V to start from castle scene again.', 190, 260);
-    }
+    } 
   }
 
   updateScene(x, y, currentFrame){

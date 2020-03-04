@@ -296,6 +296,10 @@ class GameView {
       this.superMode = !this.superMode;
     }
 
+    if (e.keyCode === 38 || e.keyCode === 40){
+      e.preventDefault();
+    }
+
 }
 
  keyUpHandler(e) {
@@ -307,6 +311,10 @@ class GameView {
     this.left = false;
     this.still = true;
   }
+   if (e.keyCode === 38 || e.keyCode === 40){
+     e.preventDefault();
+   }
+
 }
 
 foundKeys(){

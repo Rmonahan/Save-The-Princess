@@ -966,7 +966,7 @@ function () {
           if (self.room === 25) self.overTyped = true;
           clearInterval(typing);
         }
-      }, 100);
+      }, 30);
     }
   }, {
     key: "drawTextBox",

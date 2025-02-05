@@ -939,48 +939,7 @@ function () {
       var words = str.split(" ");
       var sentence = "";
       var self = this;
-      var typing;
-      function renderFullText() {
-        clearInterval(typing); // Stop the typing animation
-        self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height); // Optional: Clear previous text
-
-        // Instantly render the full text
-        cursorX = startX;
-        cursorY = startY;
-        sentence = "";
-
-        words.forEach((word, index) => {
-          var width = self.ctx.measureText(sentence).width;
-
-          if (startX + width >= self.canvas.width - padding) {
-            cursorX = startX;
-            cursorY += lineHeight;
-            sentence = word + " ";
-          } else if (word === "stringBreak") {
-            cursorX = startX;
-            cursorY += lineHeight + 10;
-            sentence = words[index + 1] + " ";
-          } else {
-            cursorX = startX + width;
-          }
-
-          self.ctx.font = "12pt Arial";
-          self.ctx.fillStyle = "white";
-          self.ctx.fillText(word, cursorX, cursorY);
-        });
-
-        // Mark as complete
-        if (self.room === 0) self.introTyped = true;
-        if (self.room === 25) self.overTyped = true;
-      }
-
-      // Set up key listener for Enter
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-          renderFullText(); // Instantly complete the text
-        }
-      });
-      typing = setInterval(function () {
+      var typing = setInterval(function () {
         var width = self.ctx.measureText(sentence).width;
         sentence += words[i] + " ";
 
@@ -1007,7 +966,7 @@ function () {
           if (self.room === 25) self.overTyped = true;
           clearInterval(typing);
         }
-      }, 200);
+      }, 100);
     }
   }, {
     key: "drawTextBox",
